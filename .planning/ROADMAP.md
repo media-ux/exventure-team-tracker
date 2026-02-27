@@ -36,7 +36,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 5 plans in 2 waves
 
 Plans:
-- [ ] 01-01-PLAN.md — Project scaffold and Supabase client setup
+- [x] 01-01-PLAN.md — Project scaffold and Supabase client setup ✓
 - [ ] 01-02-PLAN.md — Database schema with RLS policies
 - [ ] 01-03-PLAN.md — Authentication with session persistence
 - [ ] 01-04-PLAN.md — Team member management
@@ -115,7 +115,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Data Layer | 0/5 | Ready to execute | - |
+| 1. Foundation & Data Layer | 1/5 | In progress | - |
 | 2. Core Dashboard & Real-time | 0/TBD | Not started | - |
 | 3. Spiderweb Visualization | 0/TBD | Not started | - |
 | 4. Slack Integration | 0/TBD | Not started | - |

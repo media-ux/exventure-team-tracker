@@ -76,7 +76,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **SEC-01**: All API endpoints require authentication
 - [ ] **SEC-02**: Row-level security in Supabase restricts data to authenticated users
 - [ ] **SEC-03**: Slack webhook has authentication token
-- [ ] **SEC-04**: Environment variables stored securely in Vercel
+- [x] **SEC-04**: Environment variables stored securely in Vercel ✓
 
 ## v2 Requirements
 
@@ -189,7 +189,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SEC-01 | Phase 1 | Pending |
 | SEC-02 | Phase 1 | Pending |
 | SEC-03 | Phase 4 | Pending |
-| SEC-04 | Phase 5 | Pending |
+| SEC-04 | Phase 1 | Complete (01-01) |
 
 **Coverage:**
 - v1 requirements: 44 total
