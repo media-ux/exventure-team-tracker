@@ -33,10 +33,14 @@ Decimal phases appear between their surrounding integers in numeric order.
   6. User can edit task details, delete tasks, and reassign to different team members
   7. Task status can be changed via dropdown (backlog, in_progress, blocked, done)
   8. All API endpoints require authentication and row-level security restricts data to authenticated users
-**Plans**: TBD
+**Plans**: 5 plans in 2 waves
 
 Plans:
-- TBD (to be defined during phase planning)
+- [ ] 01-01-PLAN.md — Project scaffold and Supabase client setup
+- [ ] 01-02-PLAN.md — Database schema with RLS policies
+- [ ] 01-03-PLAN.md — Authentication with session persistence
+- [ ] 01-04-PLAN.md — Team member management
+- [ ] 01-05-PLAN.md — Hierarchical data CRUD (Projects → Sub-units → Tasks)
 
 ### Phase 2: Core Dashboard & Real-time
 **Goal**: Validate data layer with functional UI showing real-time updates across list and board views
@@ -111,7 +115,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Data Layer | 0/TBD | Not started | - |
+| 1. Foundation & Data Layer | 0/5 | Ready to execute | - |
 | 2. Core Dashboard & Real-time | 0/TBD | Not started | - |
 | 3. Spiderweb Visualization | 0/TBD | Not started | - |
 | 4. Slack Integration | 0/TBD | Not started | - |
@@ -119,4 +123,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 ---
 *Roadmap created: 2026-02-28*
-*Last updated: 2026-02-28*
+*Last updated: 2026-02-28 (Phase 1 plans created)*
