@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
-import { Tables, TablesInsert } from '../lib/database.types'
+import type { Tables, TablesInsert } from '../lib/database.types'
 
 type Project = Tables<'projects'> & {
   sub_units: Array<Tables<'sub_units'> & { task_count?: number }>

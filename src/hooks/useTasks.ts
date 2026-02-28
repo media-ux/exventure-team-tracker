@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
-import { Tables, TablesInsert, TablesUpdate, Enums } from '../lib/database.types'
+import type { Tables, TablesInsert, TablesUpdate, Enums } from '../lib/database.types'
 
 type Task = Tables<'tasks'> & {
   sub_units: Tables<'sub_units'> & {

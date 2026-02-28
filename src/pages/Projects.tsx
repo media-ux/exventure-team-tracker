@@ -6,7 +6,7 @@ import { TaskForm } from '../components/TaskForm'
 
 // Import useTeamMembers hook (from plan 01-04)
 import { supabase } from '../lib/supabase'
-import { Tables } from '../lib/database.types'
+import type { Tables } from '../lib/database.types'
 import { useEffect } from 'react'
 
 type TeamMember = Tables<'team_members'>

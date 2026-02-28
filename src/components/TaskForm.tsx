@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Tables, Enums } from '../lib/database.types'
+import type { Tables, Enums } from '../lib/database.types'
 
 type TaskStatus = Enums<'task_status'>
 type TeamMember = Tables<'team_members'>

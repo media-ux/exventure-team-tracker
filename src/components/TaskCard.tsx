@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Tables, Enums } from '../lib/database.types'
+import type { Tables, Enums } from '../lib/database.types'
 import { TaskForm } from './TaskForm'
 
 type Task = Tables<'tasks'> & {
