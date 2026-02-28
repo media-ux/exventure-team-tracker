@@ -1,16 +1,30 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import { useAuth } from './hooks/useAuth'
 import { Login } from './pages/Login'
 import { Dashboard } from './pages/Dashboard'
 import { TeamMembers } from './pages/TeamMembers'
 import { Projects } from './pages/Projects'
-
-type Page = 'dashboard' | 'team' | 'projects'
+import { TaskBoard } from './pages/TaskBoard'
 
 function App() {
   const { session, loading } = useAuth()
-  const [currentPage, setCurrentPage] = useState<Page>('dashboard')
+  const [currentPath, setCurrentPath] = useState(window.location.pathname)
+
+  // Listen for path changes
+  useEffect(() => {
+    const handlePathChange = () => {
+      setCurrentPath(window.location.pathname)
+    }
+
+    window.addEventListener('popstate', handlePathChange)
+    return () => window.removeEventListener('popstate', handlePathChange)
+  }, [])
+
+  const navigate = (path: string) => {
+    window.history.pushState({}, '', path)
+    setCurrentPath(path)
+  }
 
   if (loading) {
     return <div>Loading...</div>
@@ -28,9 +42,9 @@ function App() {
         marginBottom: '2rem'
       }}>
         <button
-          onClick={() => setCurrentPage('dashboard')}
+          onClick={() => navigate('/')}
           style={{
-            background: currentPage === 'dashboard' ? '#1565c0' : 'transparent',
+            background: currentPath === '/' ? '#1565c0' : 'transparent',
             color: 'white',
             border: '1px solid white',
             padding: '0.5rem 1rem',
@@ -42,9 +56,9 @@ function App() {
           Dashboard
         </button>
         <button
-          onClick={() => setCurrentPage('team')}
+          onClick={() => navigate('/tasks')}
           style={{
-            background: currentPage === 'team' ? '#1565c0' : 'transparent',
+            background: currentPath === '/tasks' ? '#1565c0' : 'transparent',
             color: 'white',
             border: '1px solid white',
             padding: '0.5rem 1rem',
@@ -53,12 +67,26 @@ function App() {
             borderRadius: '4px'
           }}
         >
-          Team
+          Task Board
         </button>
         <button
-          onClick={() => setCurrentPage('projects')}
+          onClick={() => navigate('/projects')}
           style={{
-            background: currentPage === 'projects' ? '#1565c0' : 'transparent',
+            background: currentPath === '/projects' ? '#1565c0' : 'transparent',
+            color: 'white',
+            border: '1px solid white',
+            padding: '0.5rem 1rem',
+            marginRight: '0.5rem',
+            cursor: 'pointer',
+            borderRadius: '4px'
+          }}
+        >
+          Projects
+        </button>
+        <button
+          onClick={() => navigate('/team')}
+          style={{
+            background: currentPath === '/team' ? '#1565c0' : 'transparent',
             color: 'white',
             border: '1px solid white',
             padding: '0.5rem 1rem',
@@ -66,13 +94,14 @@ function App() {
             borderRadius: '4px'
           }}
         >
-          Projects
+          Team
         </button>
       </nav>
 
-      {currentPage === 'dashboard' && <Dashboard />}
-      {currentPage === 'team' && <TeamMembers />}
-      {currentPage === 'projects' && <Projects />}
+      {currentPath === '/' && <Dashboard />}
+      {currentPath === '/tasks' && <TaskBoard />}
+      {currentPath === '/projects' && <Projects />}
+      {currentPath === '/team' && <TeamMembers />}
     </div>
   )
 }
