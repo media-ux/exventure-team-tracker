@@ -18,10 +18,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Data Model
 
-- [ ] **DATA-01**: System supports hierarchical structure: Company → Project → Sub-unit → Task
-- [ ] **DATA-02**: User can create project with name, code name, team assignment
-- [ ] **DATA-03**: User can create sub-unit under a project
-- [ ] **DATA-04**: User can create task with title, description, assignee, due date, status
+- [x] **DATA-01**: System supports hierarchical structure: Company → Project → Sub-unit → Task
+- [x] **DATA-02**: User can create project with name, code name, team assignment
+- [x] **DATA-03**: User can create sub-unit under a project
+- [x] **DATA-04**: User can create task with title, description, assignee, due date, status
 - [ ] **DATA-05**: User can edit task details
 - [ ] **DATA-06**: User can delete task
 - [ ] **DATA-07**: User can assign task to team member
@@ -47,7 +47,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Status & Workflow
 
-- [ ] **STATUS-01**: Task has status: backlog, in_progress, blocked, done
+- [x] **STATUS-01**: Task has status: backlog, in_progress, blocked, done
 - [ ] **STATUS-02**: User can change task status via dropdown
 - [ ] **STATUS-03**: Status changes are reflected in real-time across all connected clients
 
@@ -73,8 +73,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Security
 
-- [ ] **SEC-01**: All API endpoints require authentication
-- [ ] **SEC-02**: Row-level security in Supabase restricts data to authenticated users
+- [x] **SEC-01**: All API endpoints require authentication
+- [x] **SEC-02**: Row-level security in Supabase restricts data to authenticated users
 - [ ] **SEC-03**: Slack webhook has authentication token
 - [x] **SEC-04**: Environment variables stored securely in Vercel ✓
 
@@ -152,15 +152,15 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TEAM-01 | Phase 1 | Pending |
 | TEAM-02 | Phase 1 | Pending |
 | TEAM-03 | Phase 1 | Pending |
-| DATA-01 | Phase 1 | Pending |
-| DATA-02 | Phase 1 | Pending |
-| DATA-03 | Phase 1 | Pending |
-| DATA-04 | Phase 1 | Pending |
+| DATA-01 | Phase 1 | Complete |
+| DATA-02 | Phase 1 | Complete |
+| DATA-03 | Phase 1 | Complete |
+| DATA-04 | Phase 1 | Complete |
 | DATA-05 | Phase 1 | Pending |
 | DATA-06 | Phase 1 | Pending |
 | DATA-07 | Phase 1 | Pending |
 | DATA-08 | Phase 1 | Pending |
-| STATUS-01 | Phase 1 | Pending |
+| STATUS-01 | Phase 1 | Complete |
 | STATUS-02 | Phase 1 | Pending |
 | VIZ-01 | Phase 3 | Pending |
 | VIZ-02 | Phase 3 | Pending |
@@ -186,8 +186,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | UI-02 | Phase 5 | Pending |
 | UI-03 | Phase 2 | Pending |
 | UI-04 | Phase 2 | Pending |
-| SEC-01 | Phase 1 | Pending |
-| SEC-02 | Phase 1 | Pending |
+| SEC-01 | Phase 1 | Complete |
+| SEC-02 | Phase 1 | Complete |
 | SEC-03 | Phase 4 | Pending |
 | SEC-04 | Phase 1 | Complete (01-01) |
 

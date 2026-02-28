@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-27)
 ## Current Position
 
 Phase: 1 of 5 (Foundation & Data Layer)
-Plan: 1 of 5
+Current Plan: 2 of 5
 Status: In progress
-Last activity: 2026-02-28 — Completed plan 01-01: Project setup and Supabase client
+Last activity: 2026-02-28 — Completed plan 01-02: Database schema and RLS
 
-Progress: [██░░░░░░░░] 20%
+Progress: [████░░░░░░] 40%
 
 ## Performance Metrics
 
@@ -34,6 +34,7 @@ Progress: [██░░░░░░░░] 20%
 - Trend: First plan completed
 
 *Updated after each plan completion*
+| Phase 01 P02 | 16 | 3 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -48,6 +49,10 @@ Recent decisions affecting current work:
 - Step-by-step Slack guide: User needs guidance, not assumptions about knowledge
 - Singleton pattern for Supabase client (01-01): Ensures single instance across app, reduces memory overhead
 - Keep @supabase/auth-helpers-react despite deprecation (01-01): Currently in STACK.md, migration to @supabase/ssr deferred to future phase
+- [Phase 01-02]: CASCADE delete for hierarchical relationships (project deletion cascades to sub-units and tasks)
+- [Phase 01-02]: SET NULL for assigned_to FK (team member deletion unassigns tasks without data loss)
+- [Phase 01-02]: Wrapped auth.uid() in SELECT subquery for RLS policy performance (query caching)
+- [Phase 01-02]: Created indexes on all FK columns (critical for RLS performance per research)
 
 ### Pending Todos
 
@@ -64,5 +69,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-28
-Stopped at: Completed 01-01-PLAN.md (Project setup & Supabase client)
+Stopped at: Completed 01-02-PLAN.md (Database schema and RLS)
 Resume file: None
