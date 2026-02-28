@@ -22,10 +22,10 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **DATA-02**: User can create project with name, code name, team assignment
 - [x] **DATA-03**: User can create sub-unit under a project
 - [x] **DATA-04**: User can create task with title, description, assignee, due date, status
-- [ ] **DATA-05**: User can edit task details
-- [ ] **DATA-06**: User can delete task
-- [ ] **DATA-07**: User can assign task to team member
-- [ ] **DATA-08**: User can reassign task to different team member
+- [x] **DATA-05**: User can edit task details
+- [x] **DATA-06**: User can delete task
+- [x] **DATA-07**: User can assign task to team member
+- [x] **DATA-08**: User can reassign task to different team member
 
 ### Spiderweb Visualization
 
@@ -48,7 +48,7 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Status & Workflow
 
 - [x] **STATUS-01**: Task has status: backlog, in_progress, blocked, done
-- [ ] **STATUS-02**: User can change task status via dropdown
+- [x] **STATUS-02**: User can change task status via dropdown
 - [ ] **STATUS-03**: Status changes are reflected in real-time across all connected clients
 
 ### Real-time Updates
@@ -156,12 +156,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DATA-02 | Phase 1 | Complete |
 | DATA-03 | Phase 1 | Complete |
 | DATA-04 | Phase 1 | Complete |
-| DATA-05 | Phase 1 | Pending |
-| DATA-06 | Phase 1 | Pending |
-| DATA-07 | Phase 1 | Pending |
-| DATA-08 | Phase 1 | Pending |
+| DATA-05 | Phase 1 | Complete |
+| DATA-06 | Phase 1 | Complete |
+| DATA-07 | Phase 1 | Complete |
+| DATA-08 | Phase 1 | Complete |
 | STATUS-01 | Phase 1 | Complete |
-| STATUS-02 | Phase 1 | Pending |
+| STATUS-02 | Phase 1 | Complete |
 | VIZ-01 | Phase 3 | Pending |
 | VIZ-02 | Phase 3 | Pending |
 | VIZ-03 | Phase 3 | Pending |
