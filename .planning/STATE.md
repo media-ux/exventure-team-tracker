@@ -20,18 +20,18 @@ Progress: [████░░░░░░] 40%
 
 **Velocity:**
 - Total plans completed: 7
-- Average duration: 13.4 minutes
-- Total execution time: 1.57 hours
+- Average duration: 14.0 minutes
+- Total execution time: 1.60 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 1. Foundation & Data Layer | 5 | 92 min | 18.4 min |
-| 2. Core Dashboard & Real-time | 2 | 3 min | 1.5 min |
+| 2. Core Dashboard & Real-time | 2 | 6 min | 3.0 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-03 (13 min), 01-04 (12 min), 01-05 (47 min), 02-01 (2 min), 02-02 (1 min)
+- Last 5 plans: 01-03 (13 min), 01-04 (12 min), 01-05 (47 min), 02-01 (2 min), 02-02 (4 min)
 - Trend: Phase 02 plans are quick (simple components, leveraging foundation from Phase 01)
 
 *Updated after each plan completion*
@@ -40,7 +40,7 @@ Progress: [████░░░░░░] 40%
 | Phase 01 P04 | 12 | 3 tasks | 5 files |
 | Phase 01 P05 | 47 | 3 tasks | 6 files |
 | Phase 02 P01 | 2 | 3 tasks | 4 files |
-| Phase 02 P02 | 1 | 3 tasks | 4 files |
+| Phase 02 P02 | 4 | 3 tasks | 4 files |
 
 ## Accumulated Context
 

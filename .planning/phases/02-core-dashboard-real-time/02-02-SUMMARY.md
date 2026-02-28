@@ -19,7 +19,7 @@ key_files:
   modified: []
 decisions: []
 metrics:
-  duration_minutes: 1
+  duration_minutes: 4
   tasks_completed: 3
   files_created: 4
   commits: 3
