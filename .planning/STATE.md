@@ -10,28 +10,28 @@ See: .planning/PROJECT.md (updated 2026-02-27)
 ## Current Position
 
 Phase: 2 of 5 (Core Dashboard & Real-time)
-Current Plan: 2 of 5
+Current Plan: 3 of 5
 Status: In progress
-Last activity: 2026-02-28 — Completed plan 02-02: UI feedback components
+Last activity: 2026-02-28 — Completed plan 02-03: List view and filtering components
 
 Progress: [████░░░░░░] 40%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 7
-- Average duration: 14.0 minutes
-- Total execution time: 1.60 hours
+- Total plans completed: 8
+- Average duration: 12.5 minutes
+- Total execution time: 1.63 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 1. Foundation & Data Layer | 5 | 92 min | 18.4 min |
-| 2. Core Dashboard & Real-time | 2 | 6 min | 3.0 min |
+| 2. Core Dashboard & Real-time | 3 | 8 min | 2.7 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-03 (13 min), 01-04 (12 min), 01-05 (47 min), 02-01 (2 min), 02-02 (4 min)
+- Last 5 plans: 01-04 (12 min), 01-05 (47 min), 02-01 (2 min), 02-02 (4 min), 02-03 (2 min)
 - Trend: Phase 02 plans are quick (simple components, leveraging foundation from Phase 01)
 
 *Updated after each plan completion*
@@ -41,6 +41,8 @@ Progress: [████░░░░░░] 40%
 | Phase 01 P05 | 47 | 3 tasks | 6 files |
 | Phase 02 P01 | 2 | 3 tasks | 4 files |
 | Phase 02 P02 | 4 | 3 tasks | 4 files |
+| Phase 02 P03 | 2 | 3 tasks | 3 files |
+| Phase 02 P04 | 2 | 3 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -72,6 +74,9 @@ Recent decisions affecting current work:
 - [Phase 02-01]: Used @hello-pangea/dnd instead of react-beautiful-dnd for React 19 compatibility
 - [Phase 02-01]: Unique channel names with timestamp in useRealtimeSubscription prevents conflicts
 - [Phase 02-01]: Callbacks excluded from useEffect deps to prevent infinite re-subscription
+- [Phase 02-03]: Filter by project through sub_units.project_id relationship (tasks → sub_units → projects)
+- [Phase 02-03]: Use .eq() chaining for AND filter logic in Supabase queries
+- [Phase 02-03]: Transform nested join data to flat TaskWithRelations type for cleaner component interfaces
 
 ### Pending Todos
 
@@ -88,7 +93,7 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-28
-Stopped at: Completed 02-02-PLAN.md (UI feedback components)
+Stopped at: Completed 02-03-PLAN.md (List view and filtering components)
 Resume file: None
 
-**Phase 2 In Progress:** 2 of 5 plans executed. Building Core Dashboard & Real-time capabilities.
+**Phase 2 In Progress:** 3 of 5 plans executed. Building Core Dashboard & Real-time capabilities.
