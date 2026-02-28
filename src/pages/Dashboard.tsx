@@ -1,13 +1,7 @@
 import { useAuth } from '../hooks/useAuth'
-import { useProjects } from '../hooks/useProjects'
-import { useTasks } from '../hooks/useTasks'
 
 export function Dashboard() {
   const { user, signOut } = useAuth()
-  const { projects } = useProjects()
-  const { tasks } = useTasks()
-
-  console.log({ projects, tasks })
 
   const handleSignOut = async () => {
     await signOut()
@@ -18,6 +12,7 @@ export function Dashboard() {
       <h1>Dashboard</h1>
       <div style={{ marginBottom: '20px' }}>
         <p style={{ fontSize: '18px' }}>Welcome {user?.email}</p>
+        <p>Use the navigation above to view your team members.</p>
       </div>
 
       <button
