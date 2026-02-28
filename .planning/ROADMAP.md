@@ -54,10 +54,14 @@ Plans:
   5. Real-time connection indicator shows sync status (connected/disconnected)
   6. Loading states appear during async operations
   7. Error messages are user-friendly when operations fail
-**Plans**: TBD
+**Plans**: 5 plans in 3 waves
 
 Plans:
-- TBD (to be defined during phase planning)
+- [ ] 02-01-PLAN.md — Dependencies and real-time infrastructure (Wave 1)
+- [ ] 02-02-PLAN.md — Loading and error handling components (Wave 1)
+- [ ] 02-03-PLAN.md — List view with filters (Wave 2)
+- [ ] 02-04-PLAN.md — Board view with drag-and-drop (Wave 2)
+- [ ] 02-05-PLAN.md — TaskBoard integration with real-time (Wave 3)
 
 ### Phase 3: Spiderweb Visualization
 **Goal**: Deliver flagship force-directed graph with zoomable hierarchy, team member mapping, and interactive exploration
@@ -116,11 +120,11 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation & Data Layer | 5/5 | Complete | 2026-02-28 |
-| 2. Core Dashboard & Real-time | 0/TBD | Not started | - |
+| 2. Core Dashboard & Real-time | 0/5 | Planned | - |
 | 3. Spiderweb Visualization | 0/TBD | Not started | - |
 | 4. Slack Integration | 0/TBD | Not started | - |
 | 5. Production Polish & Deployment | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-02-28*
-*Last updated: 2026-02-28 (Phase 1 plans created)*
+*Last updated: 2026-02-28 (Phase 2 plans created)*
