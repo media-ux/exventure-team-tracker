@@ -37,9 +37,9 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 Plans:
 - [x] 01-01-PLAN.md — Project scaffold and Supabase client setup ✓
-- [ ] 01-02-PLAN.md — Database schema with RLS policies
-- [ ] 01-03-PLAN.md — Authentication with session persistence
-- [ ] 01-04-PLAN.md — Team member management
+- [x] 01-02-PLAN.md — Database schema with RLS policies ✓
+- [x] 01-03-PLAN.md — Authentication with session persistence ✓
+- [x] 01-04-PLAN.md — Team member management ✓
 - [ ] 01-05-PLAN.md — Hierarchical data CRUD (Projects → Sub-units → Tasks)
 
 ### Phase 2: Core Dashboard & Real-time
