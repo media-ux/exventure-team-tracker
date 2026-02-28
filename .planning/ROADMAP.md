@@ -12,7 +12,7 @@ This roadmap delivers a distributed intelligence system unifying Slack communica
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation & Data Layer** - Schema-first Supabase setup with auth, team management, and hierarchical data model
+- [x] **Phase 1: Foundation & Data Layer** - Schema-first Supabase setup with auth, team management, and hierarchical data model ✓
 - [ ] **Phase 2: Core Dashboard & Real-time** - Basic task views with real-time subscriptions and CRUD operations
 - [ ] **Phase 3: Spiderweb Visualization** - Flagship force-directed graph with zoomable hierarchy and team mapping
 - [ ] **Phase 4: Slack Integration** - Outbound notifications and step-by-step bot deployment guide
@@ -40,7 +40,7 @@ Plans:
 - [x] 01-02-PLAN.md — Database schema with RLS policies ✓
 - [x] 01-03-PLAN.md — Authentication with session persistence ✓
 - [x] 01-04-PLAN.md — Team member management ✓
-- [ ] 01-05-PLAN.md — Hierarchical data CRUD (Projects → Sub-units → Tasks)
+- [x] 01-05-PLAN.md — Hierarchical data CRUD (Projects → Sub-units → Tasks) ✓
 
 ### Phase 2: Core Dashboard & Real-time
 **Goal**: Validate data layer with functional UI showing real-time updates across list and board views
@@ -115,7 +115,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Data Layer | 4/5 | In Progress|  |
+| 1. Foundation & Data Layer | 5/5 | Complete | 2026-02-28 |
 | 2. Core Dashboard & Real-time | 0/TBD | Not started | - |
 | 3. Spiderweb Visualization | 0/TBD | Not started | - |
 | 4. Slack Integration | 0/TBD | Not started | - |
