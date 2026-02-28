@@ -41,7 +41,7 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Alternative Views
 
 - [x] **VIEW-01**: User can switch to list view showing all tasks
-- [ ] **VIEW-02**: User can switch to board view (Kanban columns by status)
+- [x] **VIEW-02**: User can switch to board view (Kanban columns by status)
 - [x] **VIEW-03**: User can filter by project
 - [x] **VIEW-04**: User can filter by team member
 
@@ -171,7 +171,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | VIZ-07 | Phase 3 | Pending |
 | VIZ-08 | Phase 3 | Pending |
 | VIEW-01 | Phase 2 | Complete |
-| VIEW-02 | Phase 2 | Pending |
+| VIEW-02 | Phase 2 | Complete |
 | VIEW-03 | Phase 2 | Complete |
 | VIEW-04 | Phase 2 | Complete |
 | STATUS-03 | Phase 2 | Complete |
