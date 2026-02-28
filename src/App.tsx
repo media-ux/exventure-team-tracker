@@ -4,8 +4,9 @@ import { useAuth } from './hooks/useAuth'
 import { Login } from './pages/Login'
 import { Dashboard } from './pages/Dashboard'
 import { TeamMembers } from './pages/TeamMembers'
+import { Projects } from './pages/Projects'
 
-type Page = 'dashboard' | 'team'
+type Page = 'dashboard' | 'team' | 'projects'
 
 function App() {
   const { session, loading } = useAuth()
@@ -47,16 +48,31 @@ function App() {
             color: 'white',
             border: '1px solid white',
             padding: '0.5rem 1rem',
+            marginRight: '0.5rem',
             cursor: 'pointer',
             borderRadius: '4px'
           }}
         >
           Team
         </button>
+        <button
+          onClick={() => setCurrentPage('projects')}
+          style={{
+            background: currentPage === 'projects' ? '#1565c0' : 'transparent',
+            color: 'white',
+            border: '1px solid white',
+            padding: '0.5rem 1rem',
+            cursor: 'pointer',
+            borderRadius: '4px'
+          }}
+        >
+          Projects
+        </button>
       </nav>
 
       {currentPage === 'dashboard' && <Dashboard />}
       {currentPage === 'team' && <TeamMembers />}
+      {currentPage === 'projects' && <Projects />}
     </div>
   )
 }
