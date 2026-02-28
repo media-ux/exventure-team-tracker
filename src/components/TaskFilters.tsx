@@ -1,7 +1,7 @@
 // src/components/TaskFilters.tsx
 import { useProjects } from '../hooks/useProjects';
 import { useTeamMembers } from '../hooks/useTeamMembers';
-import { TaskFilters as TaskFiltersType } from '../hooks/useFilteredTasks';
+import type { TaskFilters as TaskFiltersType } from '../hooks/useFilteredTasks';
 
 interface TaskFiltersProps {
   filters: TaskFiltersType;
