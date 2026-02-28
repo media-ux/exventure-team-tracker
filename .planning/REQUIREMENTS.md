@@ -12,9 +12,9 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **AUTH-01**: User can sign in with email/password via Supabase Auth
 - [ ] **AUTH-02**: User session persists across browser refresh
 - [ ] **AUTH-03**: User can sign out from any page
-- [ ] **TEAM-01**: Admin can add team members with name, role, avatar
-- [ ] **TEAM-02**: User can view team member list with roles
-- [ ] **TEAM-03**: User can view individual team member's assigned tasks
+- [x] **TEAM-01**: Admin can add team members with name, role, avatar
+- [x] **TEAM-02**: User can view team member list with roles
+- [x] **TEAM-03**: User can view individual team member's assigned tasks
 
 ### Data Model
 
@@ -149,9 +149,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | AUTH-01 | Phase 1 | Pending |
 | AUTH-02 | Phase 1 | Pending |
 | AUTH-03 | Phase 1 | Pending |
-| TEAM-01 | Phase 1 | Pending |
-| TEAM-02 | Phase 1 | Pending |
-| TEAM-03 | Phase 1 | Pending |
+| TEAM-01 | Phase 1 | Complete |
+| TEAM-02 | Phase 1 | Complete |
+| TEAM-03 | Phase 1 | Complete |
 | DATA-01 | Phase 1 | Complete |
 | DATA-02 | Phase 1 | Complete |
 | DATA-03 | Phase 1 | Complete |
