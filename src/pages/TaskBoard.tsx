@@ -10,7 +10,7 @@ import { ErrorFallback } from '../components/ErrorFallback';
 import { useFilteredTasks, TaskFilters as TaskFiltersType, TaskWithRelations } from '../hooks/useFilteredTasks';
 import { useRealtimeSubscription } from '../hooks/useRealtimeSubscription';
 import { useTasks } from '../hooks/useTasks';
-import { Database } from '../lib/database.types';
+import type { Database } from '../lib/database.types';
 
 type TaskStatus = Database['public']['Enums']['task_status'];
 

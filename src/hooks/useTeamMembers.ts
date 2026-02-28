@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
-import { Database } from '../lib/database.types'
+import type { Database } from '../lib/database.types'
 
 type TeamMember = Database['public']['Tables']['team_members']['Row'] & {
   tasks?: { count: number }[]

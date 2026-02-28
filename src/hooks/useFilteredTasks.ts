@@ -1,7 +1,7 @@
 // src/hooks/useFilteredTasks.ts
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
-import { Database } from '../lib/database.types';
+import type { Database } from '../lib/database.types';
 
 type Task = Database['public']['Tables']['tasks']['Row'];
 type Project = Database['public']['Tables']['projects']['Row'];

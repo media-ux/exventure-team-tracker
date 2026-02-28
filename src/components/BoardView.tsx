@@ -4,7 +4,7 @@ import { DragDropContext, DropResult } from '@hello-pangea/dnd';
 import { KanbanColumn } from './KanbanColumn';
 import { BoardSkeleton } from './BoardSkeleton';
 import { TaskWithRelations } from '../hooks/useFilteredTasks';
-import { Database } from '../lib/database.types';
+import type { Database } from '../lib/database.types';
 
 type TaskStatus = Database['public']['Enums']['task_status'];
 

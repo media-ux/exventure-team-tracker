@@ -1,6 +1,6 @@
 import { useState, FormEvent } from 'react'
 import { useTeamMembers } from '../hooks/useTeamMembers'
-import { Database } from '../lib/database.types'
+import type { Database } from '../lib/database.types'
 
 type Task = Database['public']['Tables']['tasks']['Row'] & {
   sub_units?: {
