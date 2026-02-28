@@ -1,7 +1,13 @@
 import { useAuth } from '../hooks/useAuth'
+import { useProjects } from '../hooks/useProjects'
+import { useTasks } from '../hooks/useTasks'
 
 export function Dashboard() {
   const { user, signOut } = useAuth()
+  const { projects } = useProjects()
+  const { tasks } = useTasks()
+
+  console.log({ projects, tasks })
 
   const handleSignOut = async () => {
     await signOut()
