@@ -1,6 +1,20 @@
-# React + TypeScript + Vite
+# Ex-Venture Team Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Team tracker application for managing projects, sub-units, and tasks with spiderweb visualization.
+
+## Development
+
+**Test Credentials:**
+- Email: test@example.com
+- Password: Password123!
+
+Start local Supabase: `supabase start`
+Start dev server: `npm run dev`
+
+## Stack
+
+- React + TypeScript + Vite
+- Supabase (Auth, Database, Real-time)
 
 Currently, two official plugins are available:
 
