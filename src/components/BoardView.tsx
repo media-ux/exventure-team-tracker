@@ -1,9 +1,10 @@
 // src/components/BoardView.tsx
 import { useMemo, useCallback } from 'react';
-import { DragDropContext, DropResult } from '@hello-pangea/dnd';
+import { DragDropContext } from '@hello-pangea/dnd';
+import type { DropResult } from '@hello-pangea/dnd';
 import { KanbanColumn } from './KanbanColumn';
 import { BoardSkeleton } from './BoardSkeleton';
-import { TaskWithRelations } from '../hooks/useFilteredTasks';
+import type { TaskWithRelations } from '../hooks/useFilteredTasks';
 import type { Database } from '../lib/database.types';
 
 type TaskStatus = Database['public']['Enums']['task_status'];

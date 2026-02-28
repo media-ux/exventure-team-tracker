@@ -1,5 +1,5 @@
 // src/components/ConnectionIndicator.tsx
-import { ChannelState } from '../hooks/useRealtimeSubscription';
+import type { ChannelState } from '../hooks/useRealtimeSubscription';
 
 interface ConnectionIndicatorProps {
   channelState: ChannelState;

@@ -1,7 +1,7 @@
 // src/components/KanbanColumn.tsx
 import { Droppable } from '@hello-pangea/dnd';
 import { DraggableTaskCard } from './DraggableTaskCard';
-import { TaskWithRelations } from '../hooks/useFilteredTasks';
+import type { TaskWithRelations } from '../hooks/useFilteredTasks';
 
 interface KanbanColumnProps {
   columnId: string;

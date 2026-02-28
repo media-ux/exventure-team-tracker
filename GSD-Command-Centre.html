@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex-Venture | Engineering Team Tracker</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0d0f18;
+            --surface: #141827;
+            --surface2: #1c2235;
+            --border: #252d45;
+            --text: #e2e8f0;
+            --text-muted: #64748b;
+            --science: #10b981;
+            --ai: #818cf8;
+            --accent: #06b6d4;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* ── Header ── */
+        .header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo { display: flex; align-items: center; gap: 12px; }
+        .logo-badge {
+            background: linear-gradient(135deg, var(--science), var(--ai));
+            color: white;
+            font-weight: 800;
+            font-size: 17px;
+            padding: 6px 12px;
+            border-radius: 8px;
+            letter-spacing: 0.5px;
+        }
+        .logo-text h1 { font-size: 17px; font-weight: 700; letter-spacing: -0.3px; }
+        .logo-text p { font-size: 11px; color: var(--text-muted); }
+        .header-date {
+            font-size: 12px;
+            color: var(--text-muted);
+            background: var(--surface2);
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+
+        /* ── Nav ── */
+        .nav {
+            display: flex;
+            gap: 2px;
+            padding: 0 32px;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            padding: 12px 18px;
+            font-size: 13px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+        .nav-btn:hover { color: var(--text); }
+        .nav-btn.active { color: var(--text); border-bottom-color: var(--accent); }
+
+        /* ── Layout ── */
+        .main {
+            padding: 28px 32px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .view { display: none; }
+        .view.active { display: block; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .mb20 { margin-bottom: 20px; }
+        .mb24 { margin-bottom: 24px; }
+
+        /* ── Cards ── */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .card-header {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 16px;
+        }
+
+        /* ── Stat cards ── */
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .stat-value { font-size: 34px; font-weight: 700; letter-spacing: -1px; }
+        .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+        /* ── Badges ── */
+        .badge {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 9px;
+            border-radius: 20px;
+            display: inline-block;
+            letter-spacing: 0.3px;
+        }
+        .badge-science { background: rgba(16,185,129,0.15); color: var(--science); }
+        .badge-ai { background: rgba(129,140,248,0.15); color: var(--ai); }
+        .badge-both { background: rgba(6,182,212,0.15); color: var(--accent); }
+
+        /* ── Team panels ── */
+        .team-panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .team-header {
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+        .team-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+        .team-header h3 { font-size: 14px; font-weight: 600; }
+        .team-count { font-size: 11px; color: var(--text-muted); margin-left: auto; }
+        .member-list { padding: 10px; display: flex; flex-direction: column; gap: 4px; }
+        .member-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            transition: background 0.15s;
+        }
+        .member-item:hover { background: var(--surface2); }
+        .member-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            flex-shrink: 0;
+            color: white;
+        }
+        .member-name { font-size: 13px; font-weight: 500; }
+        .member-role { font-size: 11px; color: var(--text-muted); }
+
+        /* ── Project cards ── */
+        .project-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .project-name { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+        .project-desc { font-size: 12px; color: var(--text-muted); margin-bottom: 16px; line-height: 1.6; }
+        .phases { display: flex; flex-direction: column; gap: 7px; margin-bottom: 14px; }
+        .phase-item { display: flex; align-items: center; gap: 10px; font-size: 13px; }
+        .phase-icon {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            color: white;
+        }
+        .phase-complete { background: var(--science); }
+        .phase-active { background: var(--ai); }
+        .phase-pending { background: transparent; border: 1px solid var(--border); }
+        .phase-name { color: var(--text); }
+        .phase-name.pending { color: var(--text-muted); }
+        .progress-bar {
+            background: var(--surface2);
+            border-radius: 4px;
+            height: 5px;
+            overflow: hidden;
+            flex: 1;
+        }
+        .progress-fill { height: 100%; border-radius: 4px; }
+        .progress-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        /* ── Log entries ── */
+        .log-feed { display: flex; flex-direction: column; gap: 10px; }
+        .log-entry {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 18px;
+            display: flex;
+            gap: 14px;
+            transition: border-color 0.15s;
+        }
+        .log-entry:hover { border-color: #374151; }
+        .log-left {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            min-width: 44px;
+        }
+        .log-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            color: white;
+            flex-shrink: 0;
+        }
+        .log-date { font-size: 10px; color: var(--text-muted); text-align: center; line-height: 1.4; }
+        .log-content { flex: 1; }
+        .log-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+        .log-author { font-size: 14px; font-weight: 600; }
+        .log-project {
+            font-size: 11px;
+            color: var(--text-muted);
+            background: var(--surface2);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        .log-text { font-size: 13px; line-height: 1.65; color: #cbd5e1; }
+        .week-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            padding: 12px 0 4px;
+            border-top: 1px solid var(--border);
+            margin-top: 4px;
+        }
+        .week-label:first-child { border-top: none; padding-top: 0; margin-top: 0; }
+
+        /* ── Goals ── */
+        .goal-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-left: 4px solid;
+            border-radius: 8px;
+            padding: 16px 18px;
+            margin-bottom: 12px;
+        }
+        .goal-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+        .goal-title { font-size: 14px; font-weight: 600; }
+        .goal-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+        /* ── Section titles ── */
+        .section-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .section-title { font-size: 19px; font-weight: 700; letter-spacing: -0.3px; }
+        .section-sub { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+
+        /* ── Buttons ── */
+        .btn-add {
+            background: linear-gradient(135deg, var(--science), var(--ai));
+            color: white;
+            border: none;
+            padding: 9px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+        }
+        .btn-add:hover { opacity: 0.88; }
+
+        /* ── Modal ── */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.72);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-overlay.open { display: flex; }
+        .modal {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            width: 540px;
+            max-width: 95vw;
+        }
+        .modal h2 { font-size: 17px; font-weight: 700; margin-bottom: 20px; }
+        .form-group { margin-bottom: 14px; }
+        .form-label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 9px 12px;
+            font-size: 13px;
+            color: var(--text);
+            outline: none;
+            transition: border-color 0.2s;
+            font-family: inherit;
+        }
+        .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--accent); }
+        .form-select option { background: #1c2235; }
+        .form-textarea { height: 110px; resize: vertical; }
+        .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
+        .btn-cancel {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 9px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .btn-save {
+            background: linear-gradient(135deg, var(--science), var(--ai));
+            border: none;
+            color: white;
+            padding: 9px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* ── Chart ── */
+        .chart-container { position: relative; height: 210px; }
+
+        /* ── Empty state ── */
+        .empty-state {
+            text-align: center;
+            padding: 48px;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 860px) {
+            .grid-2, .grid-4 { grid-template-columns: 1fr; }
+            .main { padding: 20px 16px; }
+            .nav { padding: 0 16px; overflow-x: auto; }
+            .header { padding: 12px 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+    <div class="logo">
+        <div class="logo-badge">EX</div>
+        <div class="logo-text">
+            <h1>Engineering Team Tracker</h1>
+            <p>Ex-Venture · Progress · Projects · Goals</p>
+        </div>
+    </div>
+    <div class="header-date" id="headerDate"></div>
+</div>
+
+<!-- Nav -->
+<div class="nav">
+    <button class="nav-btn active" onclick="showView('overview')">Overview</button>
+    <button class="nav-btn" onclick="showView('log')">Weekly Log</button>
+    <button class="nav-btn" onclick="showView('projects')">Projects</button>
+    <button class="nav-btn" onclick="showView('goals')">Goals</button>
+</div>
+
+<div class="main">
+
+    <!-- ── OVERVIEW ── -->
+    <div id="view-overview" class="view active">
+        <div class="grid-4 mb24">
+            <div class="stat-card">
+                <div class="stat-value" style="color:var(--science)">2</div>
+                <div class="stat-label">Science Projects</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" style="color:var(--ai)">2</div>
+                <div class="stat-label">AI Projects</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">9</div>
+                <div class="stat-label">Team Members</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="stat-updates">0</div>
+                <div class="stat-label">Updates This Week</div>
+            </div>
+        </div>
+
+        <div class="grid-2 mb24">
+            <div class="team-panel">
+                <div class="team-header">
+                    <div class="team-dot" style="background:var(--science)"></div>
+                    <h3>Science Team</h3>
+                    <span class="team-count">3 members</span>
+                </div>
+                <div class="member-list" id="science-members"></div>
+            </div>
+            <div class="team-panel">
+                <div class="team-header">
+                    <div class="team-dot" style="background:var(--ai)"></div>
+                    <h3>AI & Automation Team</h3>
+                    <span class="team-count">6 members</span>
+                </div>
+                <div class="member-list" id="ai-members"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Team Activity — Updates Per Week</div>
+            <div class="chart-container">
+                <canvas id="activityChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── WEEKLY LOG ── -->
+    <div id="view-log" class="view">
+        <div class="section-row">
+            <div>
+                <div class="section-title">Weekly Progress Log</div>
+                <div class="section-sub">All team updates, newest first</div>
+            </div>
+            <button class="btn-add" onclick="openModal()">+ Add Update</button>
+        </div>
+        <div class="log-feed" id="log-feed">
+            <div class="empty-state">No updates yet.</div>
+        </div>
+    </div>
+
+    <!-- ── PROJECTS ── -->
+    <div id="view-projects" class="view">
+        <div class="section-row">
+            <div>
+                <div class="section-title">Active Projects</div>
+                <div class="section-sub">Phase-by-phase progress across both teams</div>
+            </div>
+        </div>
+        <div class="grid-2" id="projects-grid"></div>
+    </div>
+
+    <!-- ── GOALS ── -->
+    <div id="view-goals" class="view">
+        <div class="section-row">
+            <div>
+                <div class="section-title">End Goals</div>
+                <div class="section-sub">The north star for each project — what "done" looks like</div>
+            </div>
+        </div>
+        <div id="goals-list"></div>
+    </div>
+
+</div>
+
+<!-- Add Update Modal -->
+<div class="modal-overlay" id="modal">
+    <div class="modal">
+        <h2>➕ Add Weekly Update</h2>
+        <div class="form-group">
+            <label class="form-label">Team Member</label>
+            <select class="form-select" id="input-author"></select>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Project</label>
+            <select class="form-select" id="input-project"></select>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Date</label>
+            <input type="date" class="form-input" id="input-date">
+        </div>
+        <div class="form-group">
+            <label class="form-label">Update</label>
+            <textarea class="form-textarea" id="input-content" placeholder="What was accomplished? What's in progress? Any blockers?"></textarea>
+        </div>
+        <div class="modal-actions">
+            <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+            <button class="btn-save" onclick="saveUpdate()">Save Update</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ─────────────────────────────────────────────
+// DATA
+// ─────────────────────────────────────────────
+
+const TEAMS = {
+    science: {
+        name: "Science Team",
+        color: "#10b981",
+        members: [
+            { name: "Miguel Perez Llabata", role: "Lead · Crossover", crossover: true },
+            { name: "Arvin",                role: "Scientist" },
+            { name: "Victoria",             role: "Scientist" }
+        ]
+    },
+    ai: {
+        name: "AI & Automation",
+        color: "#818cf8",
+        members: [
+            { name: "Nida Rifda",           role: "AI & Automation" },
+            { name: "Paolo Testa",          role: "AI & Automation" },
+            { name: "Harith Kesavan",       role: "AI & Automation" },
+            { name: "Shruti Patil",         role: "AI & Automation" },
+            { name: "Rithish",              role: "AI & Automation" },
+            { name: "Miguel Perez Llabata", role: "Crossover", crossover: true }
+        ]
+    }
+};
+
+const PROJECTS = [
+    {
+        id:    "waste-energy",
+        name:  "Project X150 — Waste to Energy",
+        team:  "science",
+        emoji: "♻️",
+        desc:  "Engineering a system to convert organic and solid waste into usable energy — scalable and clean. European funding in progress (Arvin, Julien audit).",
+        phases: [
+            { name: "Research & Feasibility",   status: "complete" },
+            { name: "System Design",             status: "active"   },
+            { name: "Prototype & Testing",       status: "pending"  },
+            { name: "Deployment & Scale",        status: "pending"  }
+        ],
+        goal: "A fully operational, scalable waste-to-energy conversion system producing measurable clean energy output from organic and solid waste inputs."
+    },
+    {
+        id:    "duckweed",
+        name:  "Project Seraph — Duckweed",
+        team:  "science",
+        emoji: "🌿",
+        desc:  "Optimised cultivation system for duckweed as high-protein biomass, water treatment solution, and feedstock.",
+        phases: [
+            { name: "Research & Strain Selection", status: "complete" },
+            { name: "Growth System Design",        status: "active"   },
+            { name: "Pilot Cultivation",           status: "pending"  },
+            { name: "Optimisation & Scale",        status: "pending"  }
+        ],
+        goal: "A self-sustaining duckweed cultivation system producing consistent, high-yield biomass for protein, biofuel, or water remediation applications."
+    },
+    {
+        id:    "intellibot",
+        name:  "IntelliBot / Mission Control",
+        team:  "ai",
+        emoji: "🤖",
+        desc:  "Centralised AI orchestration connecting IntelliBot + OpenClaw with structured task routing, GSD protocol, and real-time monitoring.",
+        phases: [
+            { name: "Architecture & Setup",         status: "complete" },
+            { name: "Agent Integration (OpenClaw)", status: "complete" },
+            { name: "GSD Protocol Integration",     status: "active"   },
+            { name: "Full Production Deployment",   status: "pending"  }
+        ],
+        goal: "IntelliBot operates as a fully autonomous, cross-agent mission control hub — reliably routing tasks, tracking execution in real-time, and integrating GSD protocol for end-to-end workflow management."
+    },
+    {
+        id:    "ai-workflows",
+        name:  "AI Workflows & Automation",
+        team:  "ai",
+        emoji: "⚡",
+        desc:  "Efficient, scalable workflows and automation — coding pipelines, internal tooling, and AI-assisted processes for the team.",
+        phases: [
+            { name: "Audit & Requirements",   status: "active"  },
+            { name: "Core Workflow Design",   status: "pending" },
+            { name: "Build & Integration",    status: "pending" },
+            { name: "Rollout & Iteration",    status: "pending" }
+        ],
+        goal: "A suite of documented, working AI-assisted workflows that measurably reduce manual overhead and increase output quality across the AI team."
+    }
+];
+
+const SEED = [
+    {
+        id:      1,
+        date:    "2026-02-27",
+        author:  "Nida Rifda",
+        team:    "ai",
+        project: "intellibot",
+        content: "Established IntelliBot (Mission Control) as a centralized AI orchestration system, connecting it with OpenClaw to enable coordinated agent workflows and structured task routing. Deployed the operational dashboard to provide secure, scalable access and real-time visibility into agent activities and task execution. Currently working on integrating the GSD protocol with IntelliBot to enhance task management, execution tracking, and cross-agent communication reliability."
+    },
+    {
+        id:      2,
+        date:    "2026-02-27",
+        author:  "Arvin",
+        team:    "science",
+        project: "waste-energy",
+        content: "Working on European funding applications and Equation Labs reports for Julien's audit. Will continue the grant application process next week."
+    },
+    {
+        id:      3,
+        date:    "2026-02-27",
+        author:  "Paolo Testa",
+        team:    "ai",
+        project: "ai-workflows",
+        content: "Built a multi-agent system implementing three protocols from scratch: A2A, Toon, and PnP (PnP is Paolo's own custom protocol). Integrated a deep learning model for image recognition and classification (~83% accuracy). Deployed the full application online. Agents run in Docker containers orchestrated by Kubernetes. Benchmarked: monolithic architecture vs Kubernetes, same query across all three protocols, and deep learning model performance across all three protocols."
+    },
+    {
+        id:      4,
+        date:    "2026-02-27",
+        author:  "Miguel Perez Llabata",
+        team:    "science",
+        project: "duckweed",
+        content: "Working on literature validation for the Seraph simulation system — a highly detailed 3D construction and physics engine modelling duckweed growth in a hydroponics tray. Currently in the literature validation phase, building custom presets from individual research papers to calibrate the simulation. Progress is deliberate and thorough given the depth of the physics modelling required."
+    },
+    {
+        id:      5,
+        date:    "2026-02-27",
+        author:  "Miguel Perez Llabata",
+        team:    "science",
+        project: "waste-energy",
+        content: "Supported Arvin on the CFD report for the X150 system — specifically the gasifier, heat exchanger, tar reformer, and thermal stability modelling. Cross-team contribution bridging science and engineering analysis."
+    },
+    {
+        id:      6,
+        date:    "2026-02-27",
+        author:  "Rithish",
+        team:    "ai",
+        project: "intellibot",
+        content: "Created a master AI agent for Clawd Bot."
+    }
+];
+
+// ─────────────────────────────────────────────
+// STATE (localStorage for persistence)
+// ─────────────────────────────────────────────
+
+function loadLogs() {
+    try {
+        const s = localStorage.getItem('exv_gsd_logs');
+        const userAdded = s ? JSON.parse(s) : [];
+        // Merge: SEED is always canonical; user-added entries (id > 1000) layer on top
+        const seedIds = new Set(SEED.map(e=>e.id));
+        const extra   = userAdded.filter(e=>!seedIds.has(e.id));
+        return [...SEED, ...extra];
+    } catch(e) { return [...SEED]; }
+}
+function saveLogs(logs) {
+    try {
+        const seedIds   = new Set(SEED.map(e=>e.id));
+        const userAdded = logs.filter(e=>!seedIds.has(e.id));
+        localStorage.setItem('exv_gsd_logs', JSON.stringify(userAdded));
+    } catch(e) {}
+}
+
+let logs = loadLogs();
+let chartInstance = null;
+
+// ─────────────────────────────────────────────
+// HELPERS
+// ─────────────────────────────────────────────
+
+function initials(name) {
+    return name.split(' ').slice(0,2).map(n=>n[0]).join('').toUpperCase();
+}
+
+const AVATAR_PALETTES = {
+    science: ['#065f46','#047857','#064e3b'],
+    ai:      ['#3730a3','#4338ca','#5b21b6','#6d28d9']
+};
+
+function avatarBg(name, team) {
+    const p = AVATAR_PALETTES[team] || AVATAR_PALETTES.ai;
+    let h = 0;
+    for (const c of name) h = (h + c.charCodeAt(0)) % p.length;
+    return p[h];
+}
+
+function teamColor(team) {
+    return team === 'science' ? '#10b981' : '#818cf8';
+}
+
+function fmtDate(dateStr) {
+    const d = new Date(dateStr + 'T12:00:00');
+    return d.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
+}
+
+function weekLabel(dateStr) {
+    const d  = new Date(dateStr + 'T12:00:00');
+    const mo = new Date(d);
+    mo.setDate(d.getDate() - ((d.getDay()+6)%7));
+    const su = new Date(mo);
+    su.setDate(mo.getDate()+6);
+    const opts = { day:'numeric', month:'short' };
+    return `Week of ${mo.toLocaleDateString('en-GB',opts)} – ${su.toLocaleDateString('en-GB',{ ...opts, year:'numeric' })}`;
+}
+
+function memberTeam(name) {
+    if (TEAMS.science.members.some(m=>m.name===name)) return 'science';
+    return 'ai';
+}
+
+function phaseProgress(phases) {
+    const done   = phases.filter(p=>p.status==='complete').length;
+    const active = phases.filter(p=>p.status==='active').length;
+    return Math.round(((done + active*0.5) / phases.length) * 100);
+}
+
+function thisWeekCount() {
+    const now = new Date();
+    const mo  = new Date(now);
+    mo.setDate(now.getDate() - ((now.getDay()+6)%7));
+    mo.setHours(0,0,0,0);
+    return logs.filter(l => new Date(l.date+'T12:00:00') >= mo).length;
+}
+
+// ─────────────────────────────────────────────
+// RENDER
+// ─────────────────────────────────────────────
+
+function renderMembers() {
+    ['science','ai'].forEach(team => {
+        const el = document.getElementById(`${team}-members`);
+        el.innerHTML = TEAMS[team].members.map(m => `
+            <div class="member-item">
+                <div class="member-avatar" style="background:${avatarBg(m.name, team)}">
+                    ${initials(m.name)}
+                </div>
+                <div>
+                    <div class="member-name">${m.name}</div>
+                    <div class="member-role">${m.role}</div>
+                </div>
+                ${m.crossover ? `<span class="badge badge-both" style="margin-left:auto">Crossover</span>` : ''}
+            </div>`).join('');
+    });
+}
+
+function renderProjects() {
+    const grid = document.getElementById('projects-grid');
+    grid.innerHTML = PROJECTS.map(p => {
+        const pct   = phaseProgress(p.phases);
+        const color = teamColor(p.team);
+        return `
+        <div class="project-card" style="border-top:3px solid ${color}">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+                <span style="font-size:20px">${p.emoji}</span>
+                <div>
+                    <div class="project-name">${p.name}</div>
+                    <span class="badge badge-${p.team}">${p.team==='science'?'Science':'AI & Automation'}</span>
+                </div>
+            </div>
+            <div class="project-desc">${p.desc}</div>
+            <div class="phases">
+                ${p.phases.map(ph=>`
+                <div class="phase-item">
+                    <div class="phase-icon phase-${ph.status}">
+                        ${ph.status==='complete'?'✓':ph.status==='active'?'●':''}
+                    </div>
+                    <span class="phase-name ${ph.status==='pending'?'pending':''}">${ph.name}</span>
+                    ${ph.status==='active'?`<span style="font-size:10px;color:${color};font-weight:700;margin-left:auto;letter-spacing:0.4px">ACTIVE</span>`:''}
+                </div>`).join('')}
+            </div>
+            <div class="progress-row">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width:${pct}%;background:${color}"></div>
+                </div>
+                <span style="font-size:12px;font-weight:700;color:${color};min-width:36px;text-align:right">${pct}%</span>
+            </div>
+        </div>`;
+    }).join('');
+}
+
+function renderGoals() {
+    document.getElementById('goals-list').innerHTML = PROJECTS.map(p => `
+        <div class="goal-item" style="border-left-color:${teamColor(p.team)}">
+            <div class="goal-head">
+                <span style="font-size:18px">${p.emoji}</span>
+                <div class="goal-title">${p.name}</div>
+                <span class="badge badge-${p.team}" style="margin-left:auto">${p.team==='science'?'Science':'AI & Auto'}</span>
+            </div>
+            <div class="goal-desc">🎯 ${p.goal}</div>
+        </div>`).join('');
+}
+
+function renderLog() {
+    document.getElementById('stat-updates').textContent = thisWeekCount();
+
+    const feed = document.getElementById('log-feed');
+    if (!logs.length) {
+        feed.innerHTML = '<div class="empty-state">No updates yet — add the first one!</div>';
+        return;
+    }
+
+    const sorted = [...logs].sort((a,b)=>new Date(b.date+'T12:00:00')-new Date(a.date+'T12:00:00'));
+    let html = '', lastWk = '';
+
+    sorted.forEach(e => {
+        const wk = weekLabel(e.date);
+        if (wk !== lastWk) {
+            html += `<div class="week-label">${wk}</div>`;
+            lastWk = wk;
+        }
+        const team    = e.team || memberTeam(e.author);
+        const color   = teamColor(team);
+        const project = PROJECTS.find(p=>p.id===e.project);
+        const [mo, yr] = [
+            new Date(e.date+'T12:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short'}),
+            new Date(e.date+'T12:00:00').getFullYear()
+        ];
+        html += `
+        <div class="log-entry">
+            <div class="log-left">
+                <div class="log-avatar" style="background:${avatarBg(e.author,team)}">
+                    ${initials(e.author)}
+                </div>
+                <div class="log-date">${mo}<br>${yr}</div>
+            </div>
+            <div class="log-content">
+                <div class="log-meta">
+                    <span class="log-author">${e.author}</span>
+                    <span class="badge badge-${team}">${team==='science'?'Science':'AI'}</span>
+                    ${project?`<span class="log-project">${project.emoji} ${project.name}</span>`:''}
+                </div>
+                <div class="log-text">${e.content}</div>
+            </div>
+        </div>`;
+    });
+
+    feed.innerHTML = html;
+}
+
+function renderChart() {
+    const ctx = document.getElementById('activityChart').getContext('2d');
+    if (chartInstance) { chartInstance.destroy(); }
+
+    const labels = [], sciData = [], aiData = [];
+    const now = new Date();
+
+    for (let i=5; i>=0; i--) {
+        const mo = new Date(now);
+        mo.setDate(now.getDate() - ((now.getDay()+6)%7) - (i*7));
+        mo.setHours(0,0,0,0);
+        const su = new Date(mo);
+        su.setDate(mo.getDate()+6);
+        su.setHours(23,59,59,999);
+
+        const wkStr = mo.toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+        labels.push(wkStr);
+
+        let sci=0, ai=0;
+        logs.forEach(l => {
+            const d = new Date(l.date+'T12:00:00');
+            if (d>=mo && d<=su) {
+                if ((l.team||memberTeam(l.author))==='science') sci++;
+                else ai++;
+            }
+        });
+        sciData.push(sci);
+        aiData.push(ai);
+    }
+
+    chartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels,
+            datasets: [
+                {
+                    label: 'Science',
+                    data: sciData,
+                    backgroundColor: 'rgba(16,185,129,0.65)',
+                    borderColor: '#10b981',
+                    borderWidth: 1,
+                    borderRadius: 4
+                },
+                {
+                    label: 'AI & Automation',
+                    data: aiData,
+                    backgroundColor: 'rgba(129,140,248,0.65)',
+                    borderColor: '#818cf8',
+                    borderWidth: 1,
+                    borderRadius: 4
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { labels: { color:'#94a3b8', font:{ size:12 }, boxWidth:12 } }
+            },
+            scales: {
+                x: { ticks:{ color:'#64748b', font:{size:11} }, grid:{ color:'rgba(255,255,255,0.03)' } },
+                y: { ticks:{ color:'#64748b', stepSize:1 }, grid:{ color:'rgba(255,255,255,0.04)' }, beginAtZero:true }
+            }
+        }
+    });
+}
+
+// ─────────────────────────────────────────────
+// MODAL
+// ─────────────────────────────────────────────
+
+function populateModal() {
+    const allMembers = [
+        ...TEAMS.science.members.filter(m=>!m.crossover),
+        { name:"Miguel Perez Llabata", role:"Crossover" },
+        ...TEAMS.ai.members.filter(m=>!m.crossover)
+    ];
+    const unique = [...new Map(allMembers.map(m=>[m.name,m])).values()];
+
+    document.getElementById('input-author').innerHTML =
+        unique.map(m=>`<option value="${m.name}">${m.name}</option>`).join('');
+    document.getElementById('input-project').innerHTML =
+        PROJECTS.map(p=>`<option value="${p.id}">${p.emoji} ${p.name}</option>`).join('');
+    document.getElementById('input-date').value =
+        new Date().toISOString().split('T')[0];
+}
+
+function openModal()  { populateModal(); document.getElementById('modal').classList.add('open'); }
+function closeModal() {
+    document.getElementById('modal').classList.remove('open');
+    document.getElementById('input-content').value = '';
+}
+
+function saveUpdate() {
+    const author  = document.getElementById('input-author').value;
+    const project = document.getElementById('input-project').value;
+    const date    = document.getElementById('input-date').value;
+    const content = document.getElementById('input-content').value.trim();
+    if (!content) { alert('Please write an update.'); return; }
+
+    const entry = {
+        id:      Date.now(),
+        date,
+        author,
+        team:    memberTeam(author),
+        project,
+        content
+    };
+
+    logs.unshift(entry);
+    saveLogs(logs);
+    renderLog();
+    renderChart();
+    closeModal();
+    showView('log');
+}
+
+// ─────────────────────────────────────────────
+// NAV
+// ─────────────────────────────────────────────
+
+const VIEWS = ['overview','log','projects','goals'];
+function showView(name) {
+    VIEWS.forEach(v => {
+        document.getElementById('view-'+v).classList.toggle('active', v===name);
+        document.querySelectorAll('.nav-btn')[VIEWS.indexOf(v)].classList.toggle('active', v===name);
+    });
+}
+
+// ─────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────
+
+function init() {
+    document.getElementById('headerDate').textContent =
+        new Date().toLocaleDateString('en-GB',{ weekday:'long', day:'numeric', month:'long', year:'numeric' });
+
+    renderMembers();
+    renderProjects();
+    renderGoals();
+    renderLog();
+    renderChart();
+}
+
+init();
+</script>
+</body>
+</html>

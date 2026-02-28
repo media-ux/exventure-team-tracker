@@ -1,13 +1,15 @@
 // src/pages/TaskBoard.tsx
 import { useState, useCallback } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { ViewSwitcher, ViewMode } from '../components/ViewSwitcher';
+import { ViewSwitcher } from '../components/ViewSwitcher';
+import type { ViewMode } from '../components/ViewSwitcher';
 import { TaskFilters } from '../components/TaskFilters';
 import { ListView } from '../components/ListView';
 import { BoardView } from '../components/BoardView';
 import { ConnectionIndicator } from '../components/ConnectionIndicator';
 import { ErrorFallback } from '../components/ErrorFallback';
-import { useFilteredTasks, TaskFilters as TaskFiltersType, TaskWithRelations } from '../hooks/useFilteredTasks';
+import { useFilteredTasks } from '../hooks/useFilteredTasks';
+import type { TaskFilters as TaskFiltersType, TaskWithRelations } from '../hooks/useFilteredTasks';
 import { useRealtimeSubscription } from '../hooks/useRealtimeSubscription';
 import { useTasks } from '../hooks/useTasks';
 import type { Database } from '../lib/database.types';

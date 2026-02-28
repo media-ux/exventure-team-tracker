@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(docker exec supabase_db_Ex-Venture_team_tracker psql -U postgres -c \"SELECT name, role FROM team_members ORDER BY name;\")",
+      "Bash(lsof:*)"
+    ]
+  }
+}

@@ -1,6 +1,6 @@
 // src/components/ListView.tsx
 import { TaskListSkeleton } from './TaskListSkeleton';
-import { TaskWithRelations } from '../hooks/useFilteredTasks';
+import type { TaskWithRelations } from '../hooks/useFilteredTasks';
 
 interface ListViewProps {
   tasks: TaskWithRelations[];

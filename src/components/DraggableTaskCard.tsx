@@ -1,6 +1,6 @@
 // src/components/DraggableTaskCard.tsx
 import { Draggable } from '@hello-pangea/dnd';
-import { TaskWithRelations } from '../hooks/useFilteredTasks';
+import type { TaskWithRelations } from '../hooks/useFilteredTasks';
 
 interface DraggableTaskCardProps {
   task: TaskWithRelations;
