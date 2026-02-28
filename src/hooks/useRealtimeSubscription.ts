@@ -1,7 +1,7 @@
 // src/hooks/useRealtimeSubscription.ts
 import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase';
-import { RealtimeChannel, RealtimePostgresChangesPayload } from '@supabase/supabase-js';
+import { supabase } from '../lib/supabase';
+import type { RealtimeChannel, RealtimePostgresChangesPayload } from '@supabase/supabase-js';
 
 export type ChannelState = 'SUBSCRIBED' | 'CLOSED' | 'CHANNEL_ERROR' | 'CONNECTING';
 
