@@ -1,5 +1,5 @@
 // src/components/SpiderwebGraph.tsx
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useEffect } from 'react';
 import ForceGraph2D from 'react-force-graph-2d';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
@@ -9,11 +9,41 @@ import type { GraphNode } from '../hooks/useGraphData';
 interface SpiderwebGraphProps {
   hierarchyLevel: 'company' | 'project' | 'sub-unit' | 'task';
   parentId: string | null;
+  onNavigateDown: (nodeId: string, nodeName: string, nodeLevel: string) => void;
+  onNavigateUp: () => void;
 }
 
-export function SpiderwebGraph({ hierarchyLevel, parentId }: SpiderwebGraphProps) {
+export function SpiderwebGraph({ hierarchyLevel, parentId, onNavigateDown, onNavigateUp }: SpiderwebGraphProps) {
   const fgRef = useRef<any>();
   const { data, loading, error } = useGraphData(hierarchyLevel, parentId);
+
+  // Reset zoom when hierarchy changes
+  useEffect(() => {
+    if (fgRef.current) {
+      fgRef.current.zoom(1, 500); // Reset to default zoom with smooth transition
+    }
+  }, [hierarchyLevel, parentId]);
+
+  // Handle node click for drill-down navigation
+  const handleNodeClick = useCallback((node: any) => {
+    // Only drill down if node has children (not at task level)
+    if (node.level === 'company' || node.level === 'project' || node.level === 'sub-unit') {
+      // Notify parent component to change hierarchy
+      onNavigateDown(node.id, node.name, node.level);
+
+      // Smooth zoom transition (camera zooms toward clicked node)
+      if (fgRef.current) {
+        fgRef.current.centerAt(node.x, node.y, 1000); // 1000ms transition
+        fgRef.current.zoom(3, 1000);                   // Zoom level 3
+      }
+    }
+  }, [onNavigateDown]);
+
+  // Handle background click to navigate up
+  const handleBackgroundClick = useCallback(() => {
+    // Navigate up one level (click empty background to go up)
+    onNavigateUp();
+  }, [onNavigateUp]);
 
   // Configure force simulation for expansive layout
   const handleEngineStop = useCallback(() => {
@@ -122,7 +152,9 @@ export function SpiderwebGraph({ hierarchyLevel, parentId }: SpiderwebGraphProps
         linkWidth={1}
         linkDirectionalParticles={0}
 
-        // Event handlers (placeholder for later plans)
+        // Event handlers for navigation
+        onNodeClick={handleNodeClick}
+        onBackgroundClick={handleBackgroundClick}
         onEngineStop={handleEngineStop}
       />
     </div>
