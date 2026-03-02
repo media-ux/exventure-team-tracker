@@ -17,6 +17,7 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-error-boundary": "^6.1.1",
+    "react-force-graph-2d": "^1.29.1",
     "react-loading-skeleton": "^3.5.0",
     "zod": "^3.24.1"
   },
