@@ -33,10 +33,10 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **VIZ-02**: User can click on project node to zoom into sub-units
 - [ ] **VIZ-03**: User can click on sub-unit node to zoom into tasks
 - [ ] **VIZ-04**: User can navigate back up hierarchy via breadcrumb
-- [ ] **VIZ-05**: Nodes display team members assigned at that level
-- [ ] **VIZ-06**: Nodes show visual state (solid = complete, pulsing = active, outline = pending)
-- [ ] **VIZ-07**: Hover on node shows tooltip with last update and owner
-- [ ] **VIZ-08**: Nodes are color-coded by team (green = Science, purple = AI, cyan = crossover)
+- [x] **VIZ-05**: Nodes display team members assigned at that level
+- [x] **VIZ-06**: Nodes show visual state (solid = complete, pulsing = active, outline = pending)
+- [x] **VIZ-07**: Hover on node shows tooltip with last update and owner
+- [x] **VIZ-08**: Nodes are color-coded by team (green = Science, purple = AI, cyan = crossover)
 
 ### Alternative Views
 
@@ -166,10 +166,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | VIZ-02 | Phase 3 | Pending |
 | VIZ-03 | Phase 3 | Pending |
 | VIZ-04 | Phase 3 | Pending |
-| VIZ-05 | Phase 3 | Pending |
-| VIZ-06 | Phase 3 | Pending |
-| VIZ-07 | Phase 3 | Pending |
-| VIZ-08 | Phase 3 | Pending |
+| VIZ-05 | Phase 3 | Complete |
+| VIZ-06 | Phase 3 | Complete |
+| VIZ-07 | Phase 3 | Complete |
+| VIZ-08 | Phase 3 | Complete |
 | VIEW-01 | Phase 2 | Complete |
 | VIEW-02 | Phase 2 | Complete |
 | VIEW-03 | Phase 2 | Complete |
