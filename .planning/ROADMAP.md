@@ -13,7 +13,7 @@ This roadmap delivers a distributed intelligence system unifying Slack communica
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation & Data Layer** - Schema-first Supabase setup with auth, team management, and hierarchical data model ✓
-- [ ] **Phase 2: Core Dashboard & Real-time** - Basic task views with real-time subscriptions and CRUD operations
+- [x] **Phase 2: Core Dashboard & Real-time** - Basic task views with real-time subscriptions and CRUD operations ✓
 - [ ] **Phase 3: Spiderweb Visualization** - Flagship force-directed graph with zoomable hierarchy and team mapping
 - [ ] **Phase 4: Slack Integration** - Outbound notifications and step-by-step bot deployment guide
 - [ ] **Phase 5: Production Polish & Deployment** - Mobile polish, EX Venture branding, security hardening, and Vercel deployment
@@ -57,11 +57,11 @@ Plans:
 **Plans**: 5 plans in 3 waves
 
 Plans:
-- [ ] 02-01-PLAN.md — Dependencies and real-time infrastructure (Wave 1)
-- [ ] 02-02-PLAN.md — Loading and error handling components (Wave 1)
-- [ ] 02-03-PLAN.md — List view with filters (Wave 2)
-- [ ] 02-04-PLAN.md — Board view with drag-and-drop (Wave 2)
-- [ ] 02-05-PLAN.md — TaskBoard integration with real-time (Wave 3)
+- [x] 02-01-PLAN.md — Dependencies and real-time infrastructure (Wave 1) ✓
+- [x] 02-02-PLAN.md — Loading and error handling components (Wave 1) ✓
+- [x] 02-03-PLAN.md — List view with filters (Wave 2) ✓
+- [x] 02-04-PLAN.md — Board view with drag-and-drop (Wave 2) ✓
+- [x] 02-05-PLAN.md — TaskBoard integration with real-time (Wave 3) ✓
 
 ### Phase 3: Spiderweb Visualization
 **Goal**: Deliver flagship force-directed graph with zoomable hierarchy, team member mapping, and interactive exploration
@@ -76,10 +76,12 @@ Plans:
   6. Nodes show visual state (solid = complete, pulsing = active, outline = pending)
   7. Hover on node shows tooltip with last update and owner
   8. Nodes are color-coded by team (green = Science, purple = AI, cyan = crossover)
-**Plans**: TBD
+**Plans**: 3 plans in 2 waves
 
 Plans:
-- TBD (to be defined during phase planning)
+- [ ] 03-01-PLAN.md — Force graph foundation with static layout
+- [ ] 03-02-PLAN.md — Visual design and node styling
+- [ ] 03-03-PLAN.md — Navigation and page integration
 
 ### Phase 4: Slack Integration
 **Goal**: Connect tracker to Slack with outbound notifications and provide step-by-step bot deployment guide for user
@@ -120,11 +122,11 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation & Data Layer | 5/5 | Complete | 2026-02-28 |
-| 2. Core Dashboard & Real-time | 4/5 | In Progress|  |
-| 3. Spiderweb Visualization | 0/TBD | Not started | - |
+| 2. Core Dashboard & Real-time | 5/5 | Complete | 2026-03-01 |
+| 3. Spiderweb Visualization | 0/3 | Not started | - |
 | 4. Slack Integration | 0/TBD | Not started | - |
 | 5. Production Polish & Deployment | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-02-28*
-*Last updated: 2026-02-28 (Phase 2 plans created)*
+*Last updated: 2026-03-02 (Phase 3 plans created)*
