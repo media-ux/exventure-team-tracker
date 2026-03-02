@@ -6,6 +6,7 @@ import { Dashboard } from './pages/Dashboard'
 import { TeamMembers } from './pages/TeamMembers'
 import { Projects } from './pages/Projects'
 import { TaskBoard } from './pages/TaskBoard'
+import { Spiderweb } from './pages/Spiderweb'
 
 function App() {
   const { session, loading } = useAuth()
@@ -90,11 +91,25 @@ function App() {
             color: 'white',
             border: '1px solid white',
             padding: '0.5rem 1rem',
+            marginRight: '0.5rem',
             cursor: 'pointer',
             borderRadius: '4px'
           }}
         >
           Team
+        </button>
+        <button
+          onClick={() => navigate('/spiderweb')}
+          style={{
+            background: currentPath === '/spiderweb' ? '#1565c0' : 'transparent',
+            color: 'white',
+            border: '1px solid white',
+            padding: '0.5rem 1rem',
+            cursor: 'pointer',
+            borderRadius: '4px'
+          }}
+        >
+          Spiderweb
         </button>
       </nav>
 
@@ -102,6 +117,7 @@ function App() {
       {currentPath === '/tasks' && <TaskBoard />}
       {currentPath === '/projects' && <Projects />}
       {currentPath === '/team' && <TeamMembers />}
+      {currentPath === '/spiderweb' && <Spiderweb />}
     </div>
   )
 }

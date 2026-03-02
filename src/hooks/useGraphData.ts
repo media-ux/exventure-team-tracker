@@ -10,6 +10,8 @@ export interface GraphNode {
   status?: 'done' | 'in_progress' | 'backlog' | 'blocked';
   projectId?: string;
   assignees?: string[];  // First names only
+  updated_at?: string;    // ISO timestamp for tooltip
+  owner?: string;         // Owner name for tooltip
   x?: number;
   y?: number;
 }
@@ -63,13 +65,15 @@ export function useGraphData(
             {
               id: companyData.id,
               name: companyData.name,
-              level: 'company'
+              level: 'company',
+              updated_at: companyData.updated_at
             },
             ...(projectsData || []).map(p => ({
               id: p.id,
               name: p.name,
               level: 'project' as const,
-              projectId: p.id
+              projectId: p.id,
+              updated_at: p.updated_at
             }))
           ];
 
@@ -103,13 +107,15 @@ export function useGraphData(
               id: projectData.id,
               name: projectData.name,
               level: 'project',
-              projectId: projectData.id
+              projectId: projectData.id,
+              updated_at: projectData.updated_at
             },
             ...(subUnitsData || []).map(su => ({
               id: su.id,
               name: su.name,
               level: 'sub-unit' as const,
-              projectId: projectData.id
+              projectId: projectData.id,
+              updated_at: su.updated_at
             }))
           ];
 
@@ -152,7 +158,8 @@ export function useGraphData(
               id: subUnitData.id,
               name: subUnitData.name,
               level: 'sub-unit',
-              projectId
+              projectId,
+              updated_at: subUnitData.updated_at
             },
             ...(tasksData || []).map(task => {
               // Extract first name from team_members.name
@@ -165,7 +172,9 @@ export function useGraphData(
                 level: 'task' as const,
                 status: task.status as TaskStatus,
                 projectId,
-                assignees: firstName ? [firstName] : undefined
+                assignees: firstName ? [firstName] : undefined,
+                updated_at: task.updated_at,
+                owner: assigneeName || 'Unassigned'
               };
             })
           ];
