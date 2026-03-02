@@ -29,7 +29,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Spiderweb Visualization
 
-- [ ] **VIZ-01**: User can view force-directed graph showing company → project → sub-unit hierarchy
+- [x] **VIZ-01**: User can view force-directed graph showing company → project → sub-unit hierarchy
 - [ ] **VIZ-02**: User can click on project node to zoom into sub-units
 - [ ] **VIZ-03**: User can click on sub-unit node to zoom into tasks
 - [ ] **VIZ-04**: User can navigate back up hierarchy via breadcrumb
