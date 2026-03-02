@@ -204,7 +204,38 @@ export function SpiderwebGraph({ hierarchyLevel, parentId, onNavigateDown, onNav
         nodeCanvasObject={nodeCanvasObject}
         nodeCanvasObjectMode={() => 'replace'}
         nodeVal={(node: any) => getNodeSize(node.level)}
-        nodeLabel={(node: GraphNode) => node.name}
+        nodeLabel={(node: any) => {
+          // Format last update date
+          const lastUpdate = node.updated_at
+            ? new Date(node.updated_at).toLocaleDateString()
+            : 'Never';
+
+          // Get owner (created_by user) or 'Unassigned'
+          const owner = node.owner || 'Unassigned';
+
+          // Get team members if any
+          const team = node.assignees && node.assignees.length > 0
+            ? node.assignees.join(', ')
+            : 'None';
+
+          return `
+            <div style="background: white; padding: 10px; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); font-family: sans-serif;">
+              <strong>${node.name}</strong><br/>
+              <span style="color: #666; font-size: 12px;">
+                Owner: ${owner}<br/>
+                Last update: ${lastUpdate}<br/>
+                ${node.assignees ? `Team: ${team}` : ''}
+              </span>
+            </div>
+          `;
+        }}
+        nodePointerAreaPaint={(node: any, color: any, ctx: CanvasRenderingContext2D) => {
+          // Expand hover area for better UX (Pattern from research)
+          ctx.fillStyle = color;
+          ctx.beginPath();
+          ctx.arc(node.x, node.y, getNodeRadius(node.level) * 1.5, 0, 2 * Math.PI);
+          ctx.fill();
+        }}
 
         // Link styling (thin lines per requirement)
         linkColor={() => '#cccccc'}
