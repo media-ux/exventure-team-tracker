@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { Tables, Enums } from '../lib/database.types'
 import { TaskForm } from './TaskForm'
+import { theme } from '../lib/theme'
 
 type Task = Tables<'tasks'> & {
   assigned_to_member: Tables<'team_members'> | null
@@ -21,10 +22,7 @@ export function TaskCard({ task, teamMembers, onEdit, onDelete, onStatusChange }
   const [isDeleting, setIsDeleting] = useState(false)
 
   const handleDelete = async () => {
-    if (!confirm('Are you sure you want to delete this task?')) {
-      return
-    }
-
+    if (!confirm('Are you sure you want to delete this task?')) return
     setIsDeleting(true)
     try {
       await onDelete(task.id)
@@ -62,13 +60,7 @@ export function TaskCard({ task, teamMembers, onEdit, onDelete, onStatusChange }
   }
 
   const getStatusColor = (status: TaskStatus) => {
-    switch (status) {
-      case 'backlog': return '#888'
-      case 'in_progress': return '#2196F3'
-      case 'blocked': return '#f44336'
-      case 'done': return '#4CAF50'
-      default: return '#888'
-    }
+    return theme.statusSolid[status] || theme.textMuted
   }
 
   const getStatusLabel = (status: TaskStatus) => {
@@ -83,8 +75,8 @@ export function TaskCard({ task, teamMembers, onEdit, onDelete, onStatusChange }
 
   if (isEditing) {
     return (
-      <div style={{ marginBottom: '15px', padding: '15px', border: '2px solid #2196F3', borderRadius: '4px' }}>
-        <h4 style={{ marginTop: 0 }}>Edit Task</h4>
+      <div style={{ marginBottom: '15px', padding: '15px', border: `2px solid ${theme.cyan}`, borderRadius: '6px', backgroundColor: theme.bgSurface }}>
+        <h4 style={{ marginTop: 0, color: theme.text }}>Edit Task</h4>
         <TaskForm
           onSubmit={handleEditSubmit}
           initialValues={{
@@ -102,12 +94,18 @@ export function TaskCard({ task, teamMembers, onEdit, onDelete, onStatusChange }
   }
 
   return (
-    <div style={{ marginBottom: '15px', padding: '15px', border: '1px solid #ddd', borderRadius: '4px', backgroundColor: '#f9f9f9' }}>
+    <div style={{
+      marginBottom: '15px',
+      padding: '15px',
+      border: `1px solid ${theme.border}`,
+      borderRadius: '6px',
+      backgroundColor: theme.bgSurface,
+    }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
         <div style={{ flex: 1 }}>
-          <h4 style={{ margin: '0 0 5px 0' }}>{task.title}</h4>
+          <h4 style={{ margin: '0 0 5px 0', color: theme.text }}>{task.title}</h4>
           {task.description && (
-            <p style={{ margin: '0 0 10px 0', color: '#666', fontSize: '14px' }}>{task.description}</p>
+            <p style={{ margin: '0 0 10px 0', color: theme.textSecondary, fontSize: '14px' }}>{task.description}</p>
           )}
         </div>
 
@@ -128,38 +126,32 @@ export function TaskCard({ task, teamMembers, onEdit, onDelete, onStatusChange }
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '15px', fontSize: '14px' }}>
-        <div>
-          <strong>Assignee:</strong>{' '}
+        <div style={{ color: theme.textSecondary }}>
+          <strong style={{ color: theme.text }}>Assignee:</strong>{' '}
           {task.assigned_to_member ? (
             <span>{task.assigned_to_member.name} ({task.assigned_to_member.role})</span>
           ) : (
-            <span style={{ color: '#999' }}>Unassigned</span>
+            <span style={{ color: theme.textMuted }}>Unassigned</span>
           )}
         </div>
 
-        <div>
-          <strong>Due Date:</strong>{' '}
+        <div style={{ color: theme.textSecondary }}>
+          <strong style={{ color: theme.text }}>Due Date:</strong>{' '}
           {task.due_date ? (
             <span>{new Date(task.due_date).toLocaleDateString()}</span>
           ) : (
-            <span style={{ color: '#999' }}>No due date</span>
+            <span style={{ color: theme.textMuted }}>No due date</span>
           )}
         </div>
       </div>
 
       <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', alignItems: 'center' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-          <label style={{ fontSize: '12px', fontWeight: 'bold' }}>Status:</label>
+          <label style={{ fontSize: '12px', fontWeight: 'bold', color: theme.textSecondary }}>Status:</label>
           <select
             value={task.status}
             onChange={handleStatusChange}
-            style={{
-              padding: '4px 8px',
-              fontSize: '12px',
-              borderRadius: '4px',
-              border: '1px solid #ddd',
-              cursor: 'pointer'
-            }}
+            style={{ padding: '4px 8px', fontSize: '12px', borderRadius: '4px', cursor: 'pointer' }}
           >
             <option value="backlog">Backlog</option>
             <option value="in_progress">In Progress</option>
@@ -173,7 +165,7 @@ export function TaskCard({ task, teamMembers, onEdit, onDelete, onStatusChange }
           style={{
             padding: '6px 12px',
             fontSize: '12px',
-            backgroundColor: '#2196F3',
+            backgroundColor: theme.cyan,
             color: 'white',
             border: 'none',
             borderRadius: '4px',
@@ -189,7 +181,7 @@ export function TaskCard({ task, teamMembers, onEdit, onDelete, onStatusChange }
           style={{
             padding: '6px 12px',
             fontSize: '12px',
-            backgroundColor: isDeleting ? '#ccc' : '#f44336',
+            backgroundColor: isDeleting ? theme.bgElevated : theme.error,
             color: 'white',
             border: 'none',
             borderRadius: '4px',
@@ -200,7 +192,7 @@ export function TaskCard({ task, teamMembers, onEdit, onDelete, onStatusChange }
         </button>
       </div>
 
-      <div style={{ marginTop: '10px', fontSize: '11px', color: '#999' }}>
+      <div style={{ marginTop: '10px', fontSize: '11px', color: theme.textMuted }}>
         Created: {new Date(task.created_at || '').toLocaleString()}
         {task.updated_at && task.updated_at !== task.created_at && (
           <> | Updated: {new Date(task.updated_at).toLocaleString()}</>

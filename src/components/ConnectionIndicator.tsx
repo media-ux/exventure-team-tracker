@@ -1,5 +1,6 @@
 // src/components/ConnectionIndicator.tsx
 import type { ChannelState } from '../hooks/useRealtimeSubscription';
+import { theme } from '../lib/theme';
 
 interface ConnectionIndicatorProps {
   channelState: ChannelState;
@@ -8,27 +9,27 @@ interface ConnectionIndicatorProps {
 const statusConfig: Record<ChannelState, { label: string; color: string; bgColor: string; icon: string }> = {
   SUBSCRIBED: {
     label: 'Live',
-    color: '#059669',
-    bgColor: '#d1fae5',
-    icon: '\u25CF' // ● solid circle
+    color: theme.success,
+    bgColor: theme.successBg,
+    icon: '\u25CF'
   },
   CONNECTING: {
     label: 'Connecting...',
-    color: '#d97706',
-    bgColor: '#fef3c7',
-    icon: '\u25D0' // ◐ half circle
+    color: theme.warning,
+    bgColor: theme.warningBg,
+    icon: '\u25D0'
   },
   CLOSED: {
     label: 'Disconnected',
-    color: '#dc2626',
-    bgColor: '#fee2e2',
-    icon: '\u25CB' // ○ empty circle
+    color: theme.error,
+    bgColor: theme.errorBg,
+    icon: '\u25CB'
   },
   CHANNEL_ERROR: {
     label: 'Connection Error',
-    color: '#dc2626',
-    bgColor: '#fee2e2',
-    icon: '\u2715' // ✕ X mark
+    color: theme.error,
+    bgColor: theme.errorBg,
+    icon: '\u2715'
   }
 };
 
@@ -45,7 +46,8 @@ export function ConnectionIndicator({ channelState }: ConnectionIndicatorProps) 
         borderRadius: '9999px',
         backgroundColor: config.bgColor,
         fontSize: '12px',
-        fontWeight: 500
+        fontWeight: 500,
+        border: `1px solid ${config.color}33`,
       }}
     >
       <span style={{ color: config.color, fontSize: '10px' }}>

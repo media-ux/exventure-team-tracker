@@ -1,4 +1,5 @@
 import { useAuth } from '../hooks/useAuth'
+import { theme } from '../lib/theme'
 
 export function Dashboard() {
   const { user, signOut } = useAuth()
@@ -8,11 +9,11 @@ export function Dashboard() {
   }
 
   return (
-    <div style={{ maxWidth: '800px', margin: '50px auto', padding: '20px' }}>
-      <h1>Dashboard</h1>
-      <div style={{ marginBottom: '20px' }}>
-        <p style={{ fontSize: '18px' }}>Welcome {user?.email}</p>
-        <p>Use the navigation above to view your team members.</p>
+    <div style={{ maxWidth: '800px', margin: '0 auto', padding: '40px 20px' }}>
+      <h1 style={{ color: theme.green, marginBottom: '8px' }}>Dashboard</h1>
+      <div style={{ marginBottom: '24px' }}>
+        <p style={{ fontSize: '18px', color: theme.text }}>Welcome {user?.email}</p>
+        <p style={{ color: theme.textSecondary }}>Use the navigation above to manage your projects and team.</p>
       </div>
 
       <button
@@ -20,10 +21,10 @@ export function Dashboard() {
         style={{
           padding: '10px 20px',
           fontSize: '14px',
-          backgroundColor: '#f44336',
+          backgroundColor: theme.error,
           color: 'white',
           border: 'none',
-          borderRadius: '4px',
+          borderRadius: '6px',
           cursor: 'pointer'
         }}
       >

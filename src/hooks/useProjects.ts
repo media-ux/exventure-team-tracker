@@ -2,8 +2,15 @@ import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
 import type { Tables, TablesInsert } from '../lib/database.types'
 
+type ProjectMember = {
+  id: string
+  team_member_id: string
+  team_members: { id: string; name: string; role: string; avatar_url: string | null }
+}
+
 type Project = Tables<'projects'> & {
   sub_units: Array<Tables<'sub_units'> & { task_count?: number }>
+  project_members?: ProjectMember[]
 }
 
 export function useProjects() {
@@ -32,6 +39,16 @@ export function useProjects() {
             description,
             project_id,
             created_at
+          ),
+          project_members(
+            id,
+            team_member_id,
+            team_members(
+              id,
+              name,
+              role,
+              avatar_url
+            )
           )
         `)
         .order('created_at', { ascending: false })
@@ -75,7 +92,7 @@ export function useProjects() {
     fetchProjects()
   }, [])
 
-  const addProject = async (name: string, codeName: string) => {
+  const addProject = async (name: string, codeName: string, memberIds?: string[]) => {
     try {
       setError(null)
 
@@ -107,6 +124,20 @@ export function useProjects() {
 
       if (insertError) throw insertError
 
+      // Add project members if provided
+      if (memberIds && memberIds.length > 0) {
+        const { error: membersError } = await supabase
+          .from('project_members')
+          .insert(memberIds.map(mid => ({
+            project_id: data.id,
+            team_member_id: mid
+          })))
+
+        if (membersError) {
+          console.error('Error adding project members:', membersError)
+        }
+      }
+
       // Refetch to update UI
       await fetchProjects()
 
@@ -114,6 +145,38 @@ export function useProjects() {
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to add project')
       console.error('Error adding project:', err)
+      throw err
+    }
+  }
+
+  const updateProjectMembers = async (projectId: string, memberIds: string[]) => {
+    try {
+      setError(null)
+
+      // Remove all existing members
+      const { error: deleteError } = await supabase
+        .from('project_members')
+        .delete()
+        .eq('project_id', projectId)
+
+      if (deleteError) throw deleteError
+
+      // Add new members
+      if (memberIds.length > 0) {
+        const { error: insertError } = await supabase
+          .from('project_members')
+          .insert(memberIds.map(mid => ({
+            project_id: projectId,
+            team_member_id: mid
+          })))
+
+        if (insertError) throw insertError
+      }
+
+      await fetchProjects()
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to update project members')
+      console.error('Error updating project members:', err)
       throw err
     }
   }
@@ -172,6 +235,7 @@ export function useProjects() {
     addProject,
     addSubUnit,
     deleteProject,
+    updateProjectMembers,
     loading,
     error,
     refetch: fetchProjects

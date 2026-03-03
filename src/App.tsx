@@ -7,10 +7,13 @@ import { TeamMembers } from './pages/TeamMembers'
 import { Projects } from './pages/Projects'
 import { TaskBoard } from './pages/TaskBoard'
 import { Spiderweb } from './pages/Spiderweb'
+import { Settings } from './pages/Settings'
+import { theme } from './lib/theme'
 
 function App() {
   const { session, loading } = useAuth()
   const [currentPath, setCurrentPath] = useState(window.location.pathname)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   // Listen for path changes
   useEffect(() => {
@@ -25,92 +28,66 @@ function App() {
   const navigate = (path: string) => {
     window.history.pushState({}, '', path)
     setCurrentPath(path)
+    setMenuOpen(false)
   }
 
   if (loading) {
-    return <div>Loading...</div>
+    return <div style={{ color: theme.text, padding: '2rem', textAlign: 'center' }}>Loading...</div>
   }
 
   if (!session) {
     return <Login />
   }
 
+  const navBtn = (path: string): React.CSSProperties => ({
+    background: currentPath === path ? theme.navActive : 'transparent',
+    color: currentPath === path ? theme.cyan : theme.textSecondary,
+    border: currentPath === path ? `1px solid ${theme.cyan}` : '1px solid transparent',
+    padding: '0.5rem 1rem',
+    cursor: 'pointer',
+    borderRadius: '6px',
+    fontSize: '14px',
+    fontWeight: 500,
+    transition: 'all 0.2s',
+  })
+
   return (
     <div>
       <nav style={{
-        background: '#1976d2',
-        padding: '1rem',
-        marginBottom: '2rem'
+        background: theme.navBg,
+        padding: '0.75rem 1rem',
+        borderBottom: `1px solid ${theme.border}`,
+        position: 'sticky',
+        top: 0,
+        zIndex: 100,
       }}>
-        <button
-          onClick={() => navigate('/')}
-          style={{
-            background: currentPath === '/' ? '#1565c0' : 'transparent',
-            color: 'white',
-            border: '1px solid white',
-            padding: '0.5rem 1rem',
-            marginRight: '0.5rem',
-            cursor: 'pointer',
-            borderRadius: '4px'
-          }}
-        >
-          Dashboard
-        </button>
-        <button
-          onClick={() => navigate('/tasks')}
-          style={{
-            background: currentPath === '/tasks' ? '#1565c0' : 'transparent',
-            color: 'white',
-            border: '1px solid white',
-            padding: '0.5rem 1rem',
-            marginRight: '0.5rem',
-            cursor: 'pointer',
-            borderRadius: '4px'
-          }}
-        >
-          Task Board
-        </button>
-        <button
-          onClick={() => navigate('/projects')}
-          style={{
-            background: currentPath === '/projects' ? '#1565c0' : 'transparent',
-            color: 'white',
-            border: '1px solid white',
-            padding: '0.5rem 1rem',
-            marginRight: '0.5rem',
-            cursor: 'pointer',
-            borderRadius: '4px'
-          }}
-        >
-          Projects
-        </button>
-        <button
-          onClick={() => navigate('/team')}
-          style={{
-            background: currentPath === '/team' ? '#1565c0' : 'transparent',
-            color: 'white',
-            border: '1px solid white',
-            padding: '0.5rem 1rem',
-            marginRight: '0.5rem',
-            cursor: 'pointer',
-            borderRadius: '4px'
-          }}
-        >
-          Team
-        </button>
-        <button
-          onClick={() => navigate('/spiderweb')}
-          style={{
-            background: currentPath === '/spiderweb' ? '#1565c0' : 'transparent',
-            color: 'white',
-            border: '1px solid white',
-            padding: '0.5rem 1rem',
-            cursor: 'pointer',
-            borderRadius: '4px'
-          }}
-        >
-          Spiderweb
-        </button>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <span style={{
+            color: theme.green,
+            fontWeight: 700,
+            fontSize: '16px',
+            letterSpacing: '0.5px',
+          }}>
+            EX-VENTURE
+          </span>
+
+          <button
+            className="nav-toggle"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+          >
+            {menuOpen ? '\u2715' : '\u2630'}
+          </button>
+        </div>
+
+        <div className={`nav-links ${menuOpen ? 'open' : ''}`} style={{ marginTop: '8px' }}>
+          <button onClick={() => navigate('/')} style={navBtn('/')}>Dashboard</button>
+          <button onClick={() => navigate('/tasks')} style={navBtn('/tasks')}>Task Board</button>
+          <button onClick={() => navigate('/projects')} style={navBtn('/projects')}>Projects</button>
+          <button onClick={() => navigate('/team')} style={navBtn('/team')}>Team</button>
+          <button onClick={() => navigate('/spiderweb')} style={navBtn('/spiderweb')}>Spiderweb</button>
+          <button onClick={() => navigate('/settings')} style={navBtn('/settings')}>Settings</button>
+        </div>
       </nav>
 
       {currentPath === '/' && <Dashboard />}
@@ -118,6 +95,7 @@ function App() {
       {currentPath === '/projects' && <Projects />}
       {currentPath === '/team' && <TeamMembers />}
       {currentPath === '/spiderweb' && <Spiderweb />}
+      {currentPath === '/settings' && <Settings />}
     </div>
   )
 }

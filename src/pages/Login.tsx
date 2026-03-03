@@ -1,5 +1,6 @@
 import { useState, FormEvent } from 'react'
 import { supabase } from '../lib/supabase'
+import { theme } from '../lib/theme'
 
 export function Login() {
   const [email, setEmail] = useState('')
@@ -27,62 +28,82 @@ export function Login() {
   }
 
   return (
-    <div style={{ maxWidth: '400px', margin: '100px auto', padding: '20px' }}>
-      <h1>Sign In</h1>
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-        <div>
-          <label htmlFor="email" style={{ display: 'block', marginBottom: '5px' }}>
-            Email
-          </label>
-          <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            disabled={loading}
-            style={{ width: '100%', padding: '8px', fontSize: '14px' }}
-          />
-        </div>
+    <div style={{
+      minHeight: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: theme.bg,
+      padding: '20px',
+    }}>
+      <div style={{ width: '100%', maxWidth: '400px' }}>
+        <h1 style={{ color: theme.green, textAlign: 'center', marginBottom: '8px' }}>EX-VENTURE</h1>
+        <p style={{ color: theme.textSecondary, textAlign: 'center', marginBottom: '32px' }}>Sign in to your account</p>
 
-        <div>
-          <label htmlFor="password" style={{ display: 'block', marginBottom: '5px' }}>
-            Password
-          </label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            disabled={loading}
-            style={{ width: '100%', padding: '8px', fontSize: '14px' }}
-          />
-        </div>
-
-        {error && (
-          <div style={{ color: 'red', padding: '10px', backgroundColor: '#ffebee', borderRadius: '4px' }}>
-            {error}
+        <form onSubmit={handleSubmit} style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '15px',
+          backgroundColor: theme.bgSurface,
+          padding: '24px',
+          borderRadius: '8px',
+          border: `1px solid ${theme.border}`,
+        }}>
+          <div>
+            <label htmlFor="email" style={{ display: 'block', marginBottom: '5px', color: theme.textSecondary }}>
+              Email
+            </label>
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              disabled={loading}
+              style={{ width: '100%', padding: '10px', fontSize: '14px' }}
+            />
           </div>
-        )}
 
-        <button
-          type="submit"
-          disabled={loading}
-          style={{
-            padding: '10px',
-            fontSize: '16px',
-            backgroundColor: '#4CAF50',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: loading ? 'not-allowed' : 'pointer',
-            opacity: loading ? 0.6 : 1
-          }}
-        >
-          {loading ? 'Signing in...' : 'Sign In'}
-        </button>
-      </form>
+          <div>
+            <label htmlFor="password" style={{ display: 'block', marginBottom: '5px', color: theme.textSecondary }}>
+              Password
+            </label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              disabled={loading}
+              style={{ width: '100%', padding: '10px', fontSize: '14px' }}
+            />
+          </div>
+
+          {error && (
+            <div style={{ color: theme.error, padding: '10px', backgroundColor: theme.errorBg, borderRadius: '4px', fontSize: '14px' }}>
+              {error}
+            </div>
+          )}
+
+          <button
+            type="submit"
+            disabled={loading}
+            style={{
+              padding: '12px',
+              fontSize: '16px',
+              backgroundColor: theme.green,
+              color: '#fff',
+              border: 'none',
+              borderRadius: '6px',
+              cursor: loading ? 'not-allowed' : 'pointer',
+              opacity: loading ? 0.6 : 1,
+              fontWeight: 600,
+            }}
+          >
+            {loading ? 'Signing in...' : 'Sign In'}
+          </button>
+        </form>
+      </div>
     </div>
   )
 }

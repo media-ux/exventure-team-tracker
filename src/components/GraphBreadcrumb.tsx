@@ -1,4 +1,5 @@
 // src/components/GraphBreadcrumb.tsx
+import { theme } from '../lib/theme';
 
 interface BreadcrumbItem {
   id: string
@@ -19,12 +20,14 @@ export function GraphBreadcrumb({ items, onNavigate }: GraphBreadcrumbProps) {
         top: '20px',
         left: '20px',
         zIndex: 10,
-        backgroundColor: 'rgba(255, 255, 255, 0.9)',
+        backgroundColor: `${theme.bgSurface}ee`,
         padding: '12px 20px',
         borderRadius: '8px',
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.4)',
         fontFamily: 'sans-serif',
-        fontSize: '16px'
+        fontSize: '16px',
+        border: `1px solid ${theme.border}`,
+        backdropFilter: 'blur(8px)',
       }}
     >
       {items.map((item, index) => {
@@ -38,7 +41,7 @@ export function GraphBreadcrumb({ items, onNavigate }: GraphBreadcrumbProps) {
                 style={{
                   background: 'none',
                   border: 'none',
-                  color: '#1976d2',
+                  color: theme.cyan,
                   textDecoration: 'underline',
                   cursor: 'pointer',
                   fontSize: '16px',
@@ -49,13 +52,13 @@ export function GraphBreadcrumb({ items, onNavigate }: GraphBreadcrumbProps) {
                 {item.name}
               </button>
             ) : (
-              <span style={{ color: '#000000' }}>
+              <span style={{ color: theme.text }}>
                 {item.name}
               </span>
             )}
 
             {!isLast && (
-              <span style={{ margin: '0 8px', color: '#666' }}>›</span>
+              <span style={{ margin: '0 8px', color: theme.textMuted }}>/</span>
             )}
           </span>
         )

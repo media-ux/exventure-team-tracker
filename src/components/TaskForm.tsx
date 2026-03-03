@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import type { Tables, Enums } from '../lib/database.types'
+import { theme } from '../lib/theme'
 
 type TaskStatus = Enums<'task_status'>
 type TeamMember = Tables<'team_members'>
@@ -59,7 +60,6 @@ export function TaskForm({ onSubmit, initialValues, teamMembers, onCancel }: Tas
         status
       })
 
-      // Reset form if not in edit mode
       if (!initialValues) {
         setTitle('')
         setDescription('')
@@ -75,42 +75,30 @@ export function TaskForm({ onSubmit, initialValues, teamMembers, onCancel }: Tas
     }
   }
 
+  const labelStyle: React.CSSProperties = { display: 'block', marginBottom: '5px', fontWeight: 'bold', color: theme.textSecondary }
+  const inputStyle: React.CSSProperties = { width: '100%', padding: '8px', fontSize: '14px', borderRadius: '6px' }
+
   return (
-    <form onSubmit={handleSubmit} style={{ marginBottom: '20px', padding: '15px', border: '1px solid #ddd', borderRadius: '4px' }}>
+    <form onSubmit={handleSubmit} style={{
+      marginBottom: '20px',
+      padding: '15px',
+      border: `1px solid ${theme.border}`,
+      borderRadius: '6px',
+      backgroundColor: theme.bgSurface,
+    }}>
       <div style={{ marginBottom: '15px' }}>
-        <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
-          Title *
-        </label>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-          style={{ width: '100%', padding: '8px', fontSize: '14px', borderRadius: '4px', border: '1px solid #ddd' }}
-        />
+        <label style={labelStyle}>Title *</label>
+        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required style={inputStyle} />
       </div>
 
       <div style={{ marginBottom: '15px' }}>
-        <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
-          Description
-        </label>
-        <textarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          rows={3}
-          style={{ width: '100%', padding: '8px', fontSize: '14px', borderRadius: '4px', border: '1px solid #ddd' }}
-        />
+        <label style={labelStyle}>Description</label>
+        <textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={3} style={inputStyle} />
       </div>
 
       <div style={{ marginBottom: '15px' }}>
-        <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
-          Assignee
-        </label>
-        <select
-          value={assignedTo}
-          onChange={(e) => setAssignedTo(e.target.value)}
-          style={{ width: '100%', padding: '8px', fontSize: '14px', borderRadius: '4px', border: '1px solid #ddd' }}
-        >
+        <label style={labelStyle}>Assignee</label>
+        <select value={assignedTo} onChange={(e) => setAssignedTo(e.target.value)} style={inputStyle}>
           <option value="">Unassigned</option>
           {teamMembers.map((member) => (
             <option key={member.id} value={member.id}>
@@ -121,26 +109,13 @@ export function TaskForm({ onSubmit, initialValues, teamMembers, onCancel }: Tas
       </div>
 
       <div style={{ marginBottom: '15px' }}>
-        <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
-          Due Date
-        </label>
-        <input
-          type="date"
-          value={dueDate}
-          onChange={(e) => setDueDate(e.target.value)}
-          style={{ width: '100%', padding: '8px', fontSize: '14px', borderRadius: '4px', border: '1px solid #ddd' }}
-        />
+        <label style={labelStyle}>Due Date</label>
+        <input type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} style={inputStyle} />
       </div>
 
       <div style={{ marginBottom: '15px' }}>
-        <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
-          Status
-        </label>
-        <select
-          value={status}
-          onChange={(e) => setStatus(e.target.value as TaskStatus)}
-          style={{ width: '100%', padding: '8px', fontSize: '14px', borderRadius: '4px', border: '1px solid #ddd' }}
-        >
+        <label style={labelStyle}>Status</label>
+        <select value={status} onChange={(e) => setStatus(e.target.value as TaskStatus)} style={inputStyle}>
           <option value="backlog">Backlog</option>
           <option value="in_progress">In Progress</option>
           <option value="blocked">Blocked</option>
@@ -155,10 +130,10 @@ export function TaskForm({ onSubmit, initialValues, teamMembers, onCancel }: Tas
           style={{
             padding: '10px 20px',
             fontSize: '14px',
-            backgroundColor: loading ? '#ccc' : '#4CAF50',
+            backgroundColor: loading ? theme.bgElevated : theme.green,
             color: 'white',
             border: 'none',
-            borderRadius: '4px',
+            borderRadius: '6px',
             cursor: loading ? 'not-allowed' : 'pointer'
           }}
         >
@@ -172,10 +147,10 @@ export function TaskForm({ onSubmit, initialValues, teamMembers, onCancel }: Tas
             style={{
               padding: '10px 20px',
               fontSize: '14px',
-              backgroundColor: '#666',
-              color: 'white',
-              border: 'none',
-              borderRadius: '4px',
+              backgroundColor: theme.bgElevated,
+              color: theme.textSecondary,
+              border: `1px solid ${theme.border}`,
+              borderRadius: '6px',
               cursor: 'pointer'
             }}
           >

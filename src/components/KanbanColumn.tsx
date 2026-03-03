@@ -2,6 +2,7 @@
 import { Droppable } from '@hello-pangea/dnd';
 import { DraggableTaskCard } from './DraggableTaskCard';
 import type { TaskWithRelations } from '../hooks/useFilteredTasks';
+import { theme } from '../lib/theme';
 
 interface KanbanColumnProps {
   columnId: string;
@@ -43,7 +44,7 @@ export function KanbanColumn({ columnId, title, color, tasks }: KanbanColumnProp
             fontSize: '14px',
             fontWeight: 600,
             margin: 0,
-            color: '#374151'
+            color: theme.text
           }}
         >
           {title}
@@ -51,8 +52,8 @@ export function KanbanColumn({ columnId, title, color, tasks }: KanbanColumnProp
         <span
           style={{
             fontSize: '12px',
-            color: '#9ca3af',
-            backgroundColor: '#f3f4f6',
+            color: theme.textMuted,
+            backgroundColor: theme.bgElevated,
             padding: '2px 8px',
             borderRadius: '9999px'
           }}
@@ -70,10 +71,10 @@ export function KanbanColumn({ columnId, title, color, tasks }: KanbanColumnProp
             style={{
               flex: 1,
               padding: '8px',
-              backgroundColor: snapshot.isDraggingOver ? '#eff6ff' : '#f9fafb',
+              backgroundColor: snapshot.isDraggingOver ? theme.cyanBg : theme.bgSurface,
               borderRadius: '8px',
               minHeight: '400px',
-              border: snapshot.isDraggingOver ? '2px dashed #3b82f6' : '2px solid transparent',
+              border: snapshot.isDraggingOver ? `2px dashed ${theme.cyan}` : `2px solid transparent`,
               transition: 'background-color 0.2s, border-color 0.2s'
             }}
           >
@@ -82,7 +83,7 @@ export function KanbanColumn({ columnId, title, color, tasks }: KanbanColumnProp
                 style={{
                   padding: '24px',
                   textAlign: 'center',
-                  color: '#9ca3af',
+                  color: theme.textMuted,
                   fontSize: '13px'
                 }}
               >

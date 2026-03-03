@@ -1,6 +1,7 @@
 // src/components/BoardSkeleton.tsx
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import { theme } from '../lib/theme';
 
 interface BoardSkeletonProps {
   cardsPerColumn?: number;
@@ -19,14 +20,12 @@ export function BoardSkeleton({ cardsPerColumn = 3 }: BoardSkeletonProps) {
     >
       {columns.map((columnName) => (
         <div key={columnName}>
-          {/* Column header */}
           <div style={{ marginBottom: '12px' }}>
-            <Skeleton height={24} width={100} />
+            <Skeleton height={24} width={100} baseColor={theme.bgElevated} highlightColor={theme.bgSurfaceHover} />
           </div>
-          {/* Column content */}
           <div
             style={{
-              backgroundColor: '#f3f4f6',
+              backgroundColor: theme.bgSurface,
               borderRadius: '8px',
               padding: '12px',
               minHeight: '400px'
@@ -36,15 +35,14 @@ export function BoardSkeleton({ cardsPerColumn = 3 }: BoardSkeletonProps) {
               <div
                 key={i}
                 style={{
-                  backgroundColor: '#fff',
+                  backgroundColor: theme.bgElevated,
                   borderRadius: '6px',
                   padding: '12px',
                   marginBottom: '8px',
-                  boxShadow: '0 1px 2px rgba(0,0,0,0.05)'
                 }}
               >
-                <Skeleton height={20} width="80%" />
-                <Skeleton height={14} width="50%" style={{ marginTop: '8px' }} />
+                <Skeleton height={20} width="80%" baseColor={theme.bgSurfaceHover} highlightColor={theme.border} />
+                <Skeleton height={14} width="50%" style={{ marginTop: '8px' }} baseColor={theme.bgSurfaceHover} highlightColor={theme.border} />
               </div>
             ))}
           </div>

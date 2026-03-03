@@ -9,9 +9,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Authentication & Team
 
-- [ ] **AUTH-01**: User can sign in with email/password via Supabase Auth
-- [ ] **AUTH-02**: User session persists across browser refresh
-- [ ] **AUTH-03**: User can sign out from any page
+- [x] **AUTH-01**: User can sign in with email/password via Supabase Auth
+- [x] **AUTH-02**: User session persists across browser refresh
+- [x] **AUTH-03**: User can sign out from any page
 - [x] **TEAM-01**: Admin can add team members with name, role, avatar
 - [x] **TEAM-02**: User can view team member list with roles
 - [x] **TEAM-03**: User can view individual team member's assigned tasks
@@ -30,9 +30,9 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Spiderweb Visualization
 
 - [x] **VIZ-01**: User can view force-directed graph showing company → project → sub-unit hierarchy
-- [ ] **VIZ-02**: User can click on project node to zoom into sub-units
-- [ ] **VIZ-03**: User can click on sub-unit node to zoom into tasks
-- [ ] **VIZ-04**: User can navigate back up hierarchy via breadcrumb
+- [x] **VIZ-02**: User can click on project node to zoom into sub-units
+- [x] **VIZ-03**: User can click on sub-unit node to zoom into tasks
+- [x] **VIZ-04**: User can navigate back up hierarchy via breadcrumb
 - [x] **VIZ-05**: Nodes display team members assigned at that level
 - [x] **VIZ-06**: Nodes show visual state (solid = complete, pulsing = active, outline = pending)
 - [x] **VIZ-07**: Hover on node shows tooltip with last update and owner
@@ -59,15 +59,15 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Slack Integration (Basic)
 
-- [ ] **SLACK-01**: System posts notification to Slack when task is created
-- [ ] **SLACK-02**: System posts notification to Slack when task is assigned
-- [ ] **SLACK-03**: System posts notification to Slack when task is completed
-- [ ] **SLACK-04**: Notifications include task title, assignee, and link to tracker
+- [x] **SLACK-01**: System posts notification to Slack when task is created
+- [x] **SLACK-02**: System posts notification to Slack when task is assigned
+- [x] **SLACK-03**: System posts notification to Slack when task is completed
+- [x] **SLACK-04**: Notifications include task title, assignee, and link to tracker
 
 ### UI/UX
 
-- [ ] **UI-01**: Dashboard is mobile responsive (works on phones and tablets)
-- [ ] **UI-02**: EX Venture brand theme (dark background, green/purple/cyan accents)
+- [x] **UI-01**: Dashboard is mobile responsive (works on phones and tablets)
+- [x] **UI-02**: EX Venture brand theme (dark background, green/purple/cyan accents)
 - [x] **UI-03**: Loading states for async operations
 - [x] **UI-04**: Error handling with user-friendly messages
 
@@ -75,7 +75,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **SEC-01**: All API endpoints require authentication
 - [x] **SEC-02**: Row-level security in Supabase restricts data to authenticated users
-- [ ] **SEC-03**: Slack webhook has authentication token
+- [x] **SEC-03**: Slack webhook has authentication token
 - [x] **SEC-04**: Environment variables stored securely in Vercel ✓
 
 ## v2 Requirements
@@ -146,9 +146,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AUTH-01 | Phase 1 | Pending |
-| AUTH-02 | Phase 1 | Pending |
-| AUTH-03 | Phase 1 | Pending |
+| AUTH-01 | Phase 1 | Complete |
+| AUTH-02 | Phase 1 | Complete |
+| AUTH-03 | Phase 1 | Complete |
 | TEAM-01 | Phase 1 | Complete |
 | TEAM-02 | Phase 1 | Complete |
 | TEAM-03 | Phase 1 | Complete |
@@ -162,10 +162,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DATA-08 | Phase 1 | Complete |
 | STATUS-01 | Phase 1 | Complete |
 | STATUS-02 | Phase 1 | Complete |
-| VIZ-01 | Phase 3 | Pending |
-| VIZ-02 | Phase 3 | Pending |
-| VIZ-03 | Phase 3 | Pending |
-| VIZ-04 | Phase 3 | Pending |
+| VIZ-01 | Phase 3 | Complete |
+| VIZ-02 | Phase 3 | Complete |
+| VIZ-03 | Phase 3 | Complete |
+| VIZ-04 | Phase 3 | Complete |
 | VIZ-05 | Phase 3 | Complete |
 | VIZ-06 | Phase 3 | Complete |
 | VIZ-07 | Phase 3 | Complete |
@@ -178,17 +178,17 @@ Which phases cover which requirements. Updated during roadmap creation.
 | RT-01 | Phase 2 | Complete |
 | RT-02 | Phase 2 | Complete |
 | RT-03 | Phase 2 | Complete |
-| SLACK-01 | Phase 4 | Pending |
-| SLACK-02 | Phase 4 | Pending |
-| SLACK-03 | Phase 4 | Pending |
-| SLACK-04 | Phase 4 | Pending |
-| UI-01 | Phase 5 | Pending |
-| UI-02 | Phase 5 | Pending |
+| SLACK-01 | Phase 4 | Complete |
+| SLACK-02 | Phase 4 | Complete |
+| SLACK-03 | Phase 4 | Complete |
+| SLACK-04 | Phase 4 | Complete |
+| UI-01 | Phase 5 | Complete |
+| UI-02 | Phase 5 | Complete |
 | UI-03 | Phase 2 | Complete |
 | UI-04 | Phase 2 | Complete |
 | SEC-01 | Phase 1 | Complete |
 | SEC-02 | Phase 1 | Complete |
-| SEC-03 | Phase 4 | Pending |
+| SEC-03 | Phase 4 | Complete |
 | SEC-04 | Phase 1 | Complete (01-01) |
 
 **Coverage:**
@@ -198,4 +198,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-02-27*
-*Last updated: 2026-02-28 after roadmap creation*
+*Last updated: 2026-03-03 — All v1 requirements complete*

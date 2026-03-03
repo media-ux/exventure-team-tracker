@@ -39,8 +39,6 @@ function SpiderwebContent() {
 
   const [refreshKey, setRefreshKey] = useState(0);
 
-  // Real-time subscriptions for all tables that affect the graph
-  // When any data changes, trigger a graph data refetch
   useRealtimeSubscription({
     table: 'tasks',
     onInsert: () => setRefreshKey(prev => prev + 1),
@@ -72,7 +70,7 @@ function SpiderwebContent() {
 
   const handleNavigateUp = () => {
     setHierarchy(prev => {
-      if (prev.breadcrumb.length <= 1) return prev; // Already at top
+      if (prev.breadcrumb.length <= 1) return prev;
       const newBreadcrumb = prev.breadcrumb.slice(0, -1);
       const parent = newBreadcrumb[newBreadcrumb.length - 1];
       return {
@@ -84,7 +82,6 @@ function SpiderwebContent() {
   };
 
   const handleBreadcrumbNavigate = (id: string, level: string) => {
-    // Find clicked item in breadcrumb, slice to that point
     const index = hierarchy.breadcrumb.findIndex(item => item.id === id);
     if (index >= 0) {
       const newBreadcrumb = hierarchy.breadcrumb.slice(0, index + 1);

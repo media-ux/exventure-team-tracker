@@ -92,6 +92,42 @@ export function useTeamMembers() {
     }
   }
 
+  // Update team member
+  const updateTeamMember = async (memberId: string, updates: { name?: string; role?: string; avatar_url?: string | null }) => {
+    try {
+      const { error: updateError } = await supabase
+        .from('team_members')
+        .update(updates)
+        .eq('id', memberId)
+
+      if (updateError) throw updateError
+
+      await fetchTeamMembers()
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to update team member'
+      setError(errorMessage)
+      throw err
+    }
+  }
+
+  // Delete team member
+  const deleteTeamMember = async (memberId: string) => {
+    try {
+      const { error: deleteError } = await supabase
+        .from('team_members')
+        .delete()
+        .eq('id', memberId)
+
+      if (deleteError) throw deleteError
+
+      await fetchTeamMembers()
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to delete team member'
+      setError(errorMessage)
+      throw err
+    }
+  }
+
   // Get tasks assigned to a specific team member
   const getTeamMemberTasks = async (memberId: string): Promise<Task[]> => {
     try {
@@ -131,6 +167,8 @@ export function useTeamMembers() {
     loading,
     error,
     addTeamMember,
+    updateTeamMember,
+    deleteTeamMember,
     getTeamMemberTasks,
     refreshTeamMembers: fetchTeamMembers
   }
