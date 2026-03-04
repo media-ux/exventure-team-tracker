@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import { useAuth } from './hooks/useAuth'
 import { Login } from './pages/Login'
+import { Register } from './pages/Register'
 import { Dashboard } from './pages/Dashboard'
 import { TeamMembers } from './pages/TeamMembers'
 import { Projects } from './pages/Projects'
@@ -36,7 +37,10 @@ function App() {
   }
 
   if (!session) {
-    return <Login />
+    if (currentPath === '/register') {
+      return <Register onNavigate={navigate} />
+    }
+    return <Login onNavigate={navigate} />
   }
 
   const navBtn = (path: string): React.CSSProperties => ({

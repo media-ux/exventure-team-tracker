@@ -2,7 +2,7 @@ import { useState, type FormEvent } from 'react'
 import { supabase } from '../lib/supabase'
 import { theme } from '../lib/theme'
 
-export function Login() {
+export function Login({ onNavigate }: { onNavigate: (path: string) => void }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
@@ -102,6 +102,25 @@ export function Login() {
           >
             {loading ? 'Signing in...' : 'Sign In'}
           </button>
+
+          <p style={{ textAlign: 'center', margin: '8px 0 0', color: theme.textSecondary, fontSize: '14px' }}>
+            Don't have an account?{' '}
+            <button
+              type="button"
+              onClick={() => onNavigate('/register')}
+              style={{
+                background: 'none',
+                border: 'none',
+                color: theme.cyan,
+                cursor: 'pointer',
+                fontSize: '14px',
+                textDecoration: 'underline',
+                padding: 0,
+              }}
+            >
+              Sign up
+            </button>
+          </p>
         </form>
       </div>
     </div>
