@@ -9,7 +9,7 @@ import { BoardView } from '../components/BoardView';
 import { ConnectionIndicator } from '../components/ConnectionIndicator';
 import { ErrorFallback } from '../components/ErrorFallback';
 import { useFilteredTasks } from '../hooks/useFilteredTasks';
-import type { TaskFilters as TaskFiltersType, TaskWithRelations } from '../hooks/useFilteredTasks';
+import type { TaskFilters as TaskFiltersType } from '../hooks/useFilteredTasks';
 import { useRealtimeSubscription } from '../hooks/useRealtimeSubscription';
 import { useTasks } from '../hooks/useTasks';
 import type { Database } from '../lib/database.types';
@@ -27,7 +27,7 @@ function TaskBoardContent() {
   const { tasks, isLoading, error, refetch } = useFilteredTasks(filters);
   const { changeStatus } = useTasks();
 
-  const { channelState } = useRealtimeSubscription<TaskWithRelations>({
+  const { channelState } = useRealtimeSubscription({
     table: 'tasks',
     onInsert: () => refetch(),
     onUpdate: () => refetch(),

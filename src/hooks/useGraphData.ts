@@ -26,7 +26,6 @@ interface GraphData {
   links: GraphLink[];
 }
 
-type Tables = Database['public']['Tables'];
 type TaskStatus = Database['public']['Enums']['task_status'];
 
 export function useGraphData(
@@ -66,14 +65,14 @@ export function useGraphData(
               id: companyData.id,
               name: companyData.name,
               level: 'company',
-              updated_at: companyData.updated_at
+              updated_at: (companyData as any).updated_at ?? undefined
             },
             ...(projectsData || []).map(p => ({
               id: p.id,
               name: p.name,
               level: 'project' as const,
               projectId: p.id,
-              updated_at: p.updated_at
+              updated_at: p.updated_at ?? undefined
             }))
           ];
 
@@ -108,14 +107,14 @@ export function useGraphData(
               name: projectData.name,
               level: 'project',
               projectId: projectData.id,
-              updated_at: projectData.updated_at
+              updated_at: projectData.updated_at ?? undefined
             },
             ...(subUnitsData || []).map(su => ({
               id: su.id,
               name: su.name,
               level: 'sub-unit' as const,
               projectId: projectData.id,
-              updated_at: su.updated_at
+              updated_at: (su as any).updated_at ?? undefined
             }))
           ];
 
@@ -159,7 +158,7 @@ export function useGraphData(
               name: subUnitData.name,
               level: 'sub-unit',
               projectId,
-              updated_at: subUnitData.updated_at
+              updated_at: (subUnitData as any).updated_at ?? undefined
             },
             ...(tasksData || []).map(task => {
               // Extract first name from team_members.name
@@ -173,7 +172,7 @@ export function useGraphData(
                 status: task.status as TaskStatus,
                 projectId,
                 assignees: firstName ? [firstName] : undefined,
-                updated_at: task.updated_at,
+                updated_at: task.updated_at ?? undefined,
                 owner: assigneeName || 'Unassigned'
               };
             })

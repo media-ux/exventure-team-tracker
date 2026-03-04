@@ -35,7 +35,7 @@ export function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
       </h2>
 
       <p style={{ fontSize: '14px', color: `${theme.error}cc`, margin: '0 0 16px' }}>
-        {error.message || 'An unexpected error occurred'}
+        {(error as Error)?.message || 'An unexpected error occurred'}
       </p>
 
       <button

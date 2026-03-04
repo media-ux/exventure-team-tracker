@@ -4,8 +4,7 @@ import ForceGraph2D from 'react-force-graph-2d';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { useGraphData } from '../hooks/useGraphData';
-import type { GraphNode } from '../hooks/useGraphData';
-import { getProjectColor, getNodeRadius, getNodeSize } from '../lib/graph-utils';
+import { getNodeRadius, getNodeSize } from '../lib/graph-utils';
 import { theme } from '../lib/theme';
 
 interface SpiderwebGraphProps {
@@ -16,7 +15,7 @@ interface SpiderwebGraphProps {
 }
 
 export function SpiderwebGraph({ hierarchyLevel, parentId, onNavigateDown, onNavigateUp }: SpiderwebGraphProps) {
-  const fgRef = useRef<any>();
+  const fgRef = useRef<any>(undefined);
   const { data, loading, error } = useGraphData(hierarchyLevel, parentId);
   const [pulsePhase, setPulsePhase] = useState(0);
 
@@ -177,20 +176,6 @@ export function SpiderwebGraph({ hierarchyLevel, parentId, onNavigateDown, onNav
         enableNodeDrag={false}
         enablePanInteraction={true}
         enableZoomInteraction={true}
-
-        d3Force={(forceName) => {
-          if (forceName === 'charge') {
-            const forceCharge = require('d3-force').forceManyBody();
-            forceCharge.strength(-400);
-            return forceCharge;
-          }
-          if (forceName === 'link') {
-            const forceLink = require('d3-force').forceLink();
-            forceLink.distance(150);
-            return forceLink;
-          }
-          return null;
-        }}
 
         nodeCanvasObject={nodeCanvasObject}
         nodeCanvasObjectMode={() => 'replace'}

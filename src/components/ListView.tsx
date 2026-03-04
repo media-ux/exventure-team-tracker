@@ -9,7 +9,7 @@ interface ListViewProps {
   onTaskUpdate?: () => void;
 }
 
-export function ListView({ tasks, isLoading, onTaskUpdate }: ListViewProps) {
+export function ListView({ tasks, isLoading, onTaskUpdate: _onTaskUpdate }: ListViewProps) {
   if (isLoading) {
     return <TaskListSkeleton count={5} />;
   }

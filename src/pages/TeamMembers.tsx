@@ -1,4 +1,4 @@
-import { useState, FormEvent } from 'react'
+import { useState, type FormEvent } from 'react'
 import { useTeamMembers } from '../hooks/useTeamMembers'
 import { useTasks } from '../hooks/useTasks'
 import type { Database } from '../lib/database.types'

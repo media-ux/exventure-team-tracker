@@ -42,7 +42,7 @@ export function useTeamMembers() {
 
       if (fetchError) throw fetchError
 
-      setTeamMembers(data || [])
+      setTeamMembers((data || []) as unknown as TeamMember[])
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch team members')
       console.error('Error fetching team members:', err)

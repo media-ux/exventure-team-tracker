@@ -79,7 +79,7 @@ export function useProjects() {
         })
       )
 
-      setProjects(projectsWithCounts as Project[])
+      setProjects(projectsWithCounts as unknown as Project[])
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch projects')
       console.error('Error fetching projects:', err)
@@ -126,9 +126,9 @@ export function useProjects() {
 
       // Add project members if provided
       if (memberIds && memberIds.length > 0) {
-        const { error: membersError } = await supabase
+        const { error: membersError } = await (supabase as any)
           .from('project_members')
-          .insert(memberIds.map(mid => ({
+          .insert(memberIds.map((mid: string) => ({
             project_id: data.id,
             team_member_id: mid
           })))
@@ -154,7 +154,7 @@ export function useProjects() {
       setError(null)
 
       // Remove all existing members
-      const { error: deleteError } = await supabase
+      const { error: deleteError } = await (supabase as any)
         .from('project_members')
         .delete()
         .eq('project_id', projectId)
@@ -163,9 +163,9 @@ export function useProjects() {
 
       // Add new members
       if (memberIds.length > 0) {
-        const { error: insertError } = await supabase
+        const { error: insertError } = await (supabase as any)
           .from('project_members')
-          .insert(memberIds.map(mid => ({
+          .insert(memberIds.map((mid: string) => ({
             project_id: projectId,
             team_member_id: mid
           })))

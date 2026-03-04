@@ -14,7 +14,7 @@ type TeamMember = Tables<'team_members'>
 
 export function Projects() {
   const { projects, addProject, addSubUnit, updateProjectMembers, loading: projectsLoading, error: projectsError } = useProjects()
-  const { tasks, addTask, updateTask, deleteTask, changeStatus, loading: tasksLoading, error: tasksError } = useTasks()
+  const { tasks, addTask, updateTask, deleteTask, changeStatus } = useTasks()
 
   const [expandedProject, setExpandedProject] = useState<string | null>(null)
   const [selectedSubUnit, setSelectedSubUnit] = useState<string | null>(null)

@@ -9,7 +9,7 @@ import { useRealtimeSubscription } from '../hooks/useRealtimeSubscription';
 interface HierarchyState {
   level: 'company' | 'project' | 'sub-unit' | 'task';
   parentId: string | null;
-  breadcrumb: Array<{ id: string; name: string; level: string }>;
+  breadcrumb: Array<{ id: string; name: string; level: 'company' | 'project' | 'sub-unit' | 'task' }>;
 }
 
 function getNextLevel(current: string): 'company' | 'project' | 'sub-unit' | 'task' {
@@ -64,7 +64,7 @@ function SpiderwebContent() {
     setHierarchy(prev => ({
       level: getNextLevel(prev.level),
       parentId: nodeId,
-      breadcrumb: [...prev.breadcrumb, { id: nodeId, name: nodeName, level: nodeLevel }]
+      breadcrumb: [...prev.breadcrumb, { id: nodeId, name: nodeName, level: nodeLevel as 'company' | 'project' | 'sub-unit' | 'task' }]
     }));
   };
 
